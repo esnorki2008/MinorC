@@ -123,3 +123,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/MinorC.iml
+.idea/misc.xml
+ply/__init__.py
+ply/cpp.py
+ply/ctokens.py
+ply/lex.py
+ply/yacc.py
+ply/ygen.py
+Contenido/Analizadores/parsetab.py
+Contenido/Analizadores/parser.out
