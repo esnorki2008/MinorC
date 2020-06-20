@@ -5,7 +5,8 @@ reserved = {
     'int': 'INT',
     'float': 'FLOAT',
     'char': 'CHAR',
-    'double': 'DOUBLE'
+    'double': 'DOUBLE',
+    'while': 'WHILE'
 
 }
 tokens = [
@@ -13,6 +14,8 @@ tokens = [
              'PARC',
              'CORA',
              'CORC',
+             'LLAA',
+             'LLAC',
              'MAS',
              'MENOS',
              'POR',
@@ -20,6 +23,7 @@ tokens = [
              'DECIMAL',
              'ENTERO',
              'PUNTOCOMA',
+             'COMA',
              'IDENTIFICADOR',
              'DOBLEPUNTO',
              'DOLAR',
@@ -46,6 +50,8 @@ tokens = [
 # Tokens
 t_PARA = r'\('
 t_PARC = r'\)'
+t_LLAA = r'\{'
+t_LLAC = r'\}'
 t_CORA = r'\['
 t_CORC = r'\]'
 t_MAS = r'\+'
@@ -53,6 +59,7 @@ t_MENOS = r'-'
 t_POR = r'\*'
 t_DIVIDIDO = r'/'
 t_PUNTOCOMA = r';'
+t_COMA = r','
 t_DOBLEPUNTO = r':'
 t_DOLAR = r'\$'
 t_IGUAL = r'\='
