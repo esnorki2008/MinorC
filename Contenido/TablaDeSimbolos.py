@@ -10,7 +10,7 @@ class Error:
         self.tipo = tipo
         self.tupla = tupla
 
-        print(titulo+"  "+descripcion)
+        print(titulo+"  "+descripcion+" "+str(tupla))
 
 
 class TablaDeSimbolos:
@@ -18,22 +18,72 @@ class TablaDeSimbolos:
     codigo_3d = []
     tabla_padre = None
     lst_errores = None
-
+    parametros = 0
     dic_temporales = {}
+    return_address = 0
+    contador_retornos=0
 
     def __init__(self, tabla_padre):
+        self.contador_retornos = 0
+        self.parametros = 0
         self.codigo_3d=[]
         self.lst_errores = []
         self.dic_temporales = {}
         self.tabla_padre = tabla_padre
+        self.return_address=0
         if tabla_padre is None:
             self.correlativo = 0
         else:
             self.correlativo = self.tabla_padre.correlativo + 1
 
+    def nuevo_retorno(self):
+        self.contador_retornos = self.contador_retornos +1 ;
+        return  self.contador_retornos
+
+    def push_mi_alcance(self):
+        tmp = self
+        while tmp is not None:
+            for cada in tmp.dic_temporales.items():
+                self.nuevo_codigo_3d("$sp = $sp + 1;")
+                self.nuevo_codigo_3d("$s0[$sp] = "+cada[1].contenido+";#push alcance")
+            tmp = tmp.tabla_padre
+
+    def pop_mi_alcance(self):
+        tmp = self
+        volcado = []
+        while tmp is not None:
+            for cada in  tmp.dic_temporales.items():
+                vol_item=("$sp = $sp - 1;",cada[1].contenido+" = $s0[$sp]"+";#pop alcance")
+                volcado.append(vol_item)
+
+            tmp = tmp.tabla_padre
+
+        for cada in reversed(volcado):
+
+            self.nuevo_codigo_3d(cada[1])
+            self.nuevo_codigo_3d(cada[0])
+
+
+    def aumentar_retorno(self):
+        tmp = self
+        while tmp.tabla_padre is not None:
+            tmp = tmp.tabla_padre
+        tmp.return_address= tmp.return_address+1
+        return  tmp.return_address
+
+    def mi_tabla_de_retornos(self):
+        self.nuevo_codigo_3d("retornos:")
+        self.nuevo_codigo_3d("if ($ra == -1) exit;")
+        for i in range(1,self.return_address+1):
+            self.nuevo_codigo_3d("if ($s1[$ra] == "+str(i)+ ") goto ra"+str(i)+" ;")
+
     def nuevo_correlativo(self):
         self.correlativo = self.correlativo + 1
         return self.correlativo
+
+    def nuevo_parametro(self):
+        self.parametros = self.parametros + 1
+        return self.parametros
 
     def nuevo_codigo_3d(self, nuevo):
         tmp = self
@@ -55,6 +105,7 @@ class TablaDeSimbolos:
         tmp.codigo_3d[-1]=text
 
     def imprimir_codigo_3d(self):
+        self.mi_tabla_de_retornos()
         for cada in self.codigo_3d:
             print(cada)
 

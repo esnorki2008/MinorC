@@ -1,12 +1,17 @@
 reserved = {
     'scanf': 'SCANF',
-    'main':'MAIN',
     'printf':'PRINTF',
     'int': 'INT',
     'float': 'FLOAT',
     'char': 'CHAR',
     'double': 'DOUBLE',
-    'while': 'WHILE'
+    'while': 'WHILE',
+    'do': 'DO',
+    'struct' : 'STRUCT',
+    'if' : 'IF',
+    'else':'ELSE',
+    'switch':'SWITCH',
+    'return':'RETURN'
 
 }
 tokens = [

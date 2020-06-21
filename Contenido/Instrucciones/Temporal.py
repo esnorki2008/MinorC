@@ -14,6 +14,16 @@ class Temporal:
 
     def temp_str(self):
         if self.correlativo != -1:
+            if str(self.correlativo)[0] == "v":
+                return "$"+self.correlativo
             return "$t" + str(self.correlativo)
+        else:
+            return str(self.contenido)
+
+    def param_str(self):
+        if self.correlativo != -1:
+            if str(self.correlativo)[0] == "v":
+                return "$"+self.correlativo
+            return "$a" + str(self.correlativo)
         else:
             return str(self.contenido)
