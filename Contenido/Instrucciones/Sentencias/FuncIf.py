@@ -13,19 +13,27 @@ class FuncIf(Instruccion):
         self.tupla = tupla
 
     def ejecutar_3D(self, Tabla):
+
+
         novo = TablaDeSimbolos(Tabla)
         nombre_if="label"+str(id(self))
-        novo.nuevo_codigo_3d(nombre_if+":")
+        #novo.nuevo_codigo_3d(nombre_if+":")
         valor_exec = self.param.mi_tempo
         if valor_exec is None:
             valor_exec = self.param.ejecutar_3D(novo)
 
+        if valor_exec.tipo != 0:
+            novo.nuevo_error("Error De Tipo","solo se aceptan tipos enteros en la condicional del IF",0,self.tupla)
+
         condicional="if ("+valor_exec.temp_str()+" != 1) goto out"+nombre_if+" ;"
         novo.nuevo_codigo_3d(condicional)
         self.cuerpo_si.ejecutar_3D(novo)
+        novo.nuevo_codigo_3d("goto outs" + nombre_if + ";")
         novo.nuevo_codigo_3d("out"+nombre_if+":")
         if self.cuerpo_no is not None:
+
             self.cuerpo_no.ejecutar_3D(novo)
+        novo.nuevo_codigo_3d("outs" + nombre_if + ":")
         # return self.contenido
 
     def str_arbol(self):

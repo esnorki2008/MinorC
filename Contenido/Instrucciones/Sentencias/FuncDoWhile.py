@@ -18,6 +18,9 @@ class FuncDoWhile(Instruccion):
         self.cuerpo.ejecutar_3D(novo)
         if valor_exec is None:
             valor_exec = self.param.ejecutar_3D(novo)
+
+        if valor_exec.tipo != 0:
+            novo.nuevo_error("Error De Tipo", "solo se aceptan tipos enteros en la condicional del Do While", 0, self.tupla)
         condicional = "if (" + valor_exec.temp_str() + " != 1) goto out" + nombre_ciclo + " ;"
         novo.nuevo_codigo_3d(condicional)
         novo.nuevo_codigo_3d("goto " +nombre_ciclo +";")

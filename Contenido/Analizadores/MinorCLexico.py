@@ -11,7 +11,10 @@ reserved = {
     'if' : 'IF',
     'else':'ELSE',
     'switch':'SWITCH',
-    'return':'RETURN'
+    'return':'RETURN',
+    'default':'DEFAULT',
+    'case':'CASE',
+    'for':'FOR',
 
 }
 tokens = [
@@ -49,17 +52,52 @@ tokens = [
              'MENORIGUAL',
              'MAYOR',
              'MAYORIGUAL',
-             'CADENA'
+             'CADENA',
+             'INTERROGACION',
+             'MASDOBLE',
+             'MENOSDOBLE',
+
+
+             'MASIGUAL',
+             'MENOSIGUAL',
+             'PORIGUAL',
+             'DIVIGUAL',
+             'MODIGUAL',
+             'SHIFTIIGUAL',
+             'SHIFTDIGUAL',
+             'ANDIGUAL',
+             'XORIGUAL',
+             'ORIGUAL'
+
+
          ] + list(reserved.values())
 
 # Tokens
+t_IGUAL = r'\='
+
+t_MASIGUAL = r'\+\='
+t_MENOSIGUAL = r'\-\='
+t_PORIGUAL = r'\*\='
+t_DIVIGUAL = r'\/\='
+t_MODIGUAL = r'\%\='
+t_SHIFTIIGUAL = r'\<\<\='
+t_SHIFTDIGUAL = r'\>\>\='
+t_ANDIGUAL = r'\&\='
+t_XORIGUAL = r'\^\='
+t_ORIGUAL = r'\|\='
+
+
+
 t_PARA = r'\('
 t_PARC = r'\)'
 t_LLAA = r'\{'
 t_LLAC = r'\}'
 t_CORA = r'\['
 t_CORC = r'\]'
+t_MASDOBLE = r'\+\+'
 t_MAS = r'\+'
+t_INTERROGACION = r'\?'
+t_MENOSDOBLE = r'\-\-'
 t_MENOS = r'-'
 t_POR = r'\*'
 t_DIVIDIDO = r'/'
@@ -67,7 +105,7 @@ t_PUNTOCOMA = r';'
 t_COMA = r','
 t_DOBLEPUNTO = r':'
 t_DOLAR = r'\$'
-t_IGUAL = r'\='
+
 t_MOD = r'\%'
 t_NOT = r'\!'
 t_AND = r'\&\&'

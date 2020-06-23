@@ -16,6 +16,10 @@ class LlamarFuncMetodo(Instruccion):
         lista_temp = []
         for each in self.lst_param:
             tempo :Temporal =each.ejecutar_3D(novo)
+
+
+            each.pop_retorno(Tabla,tempo.contenido)
+
             param = Temporal(None,tempo.tipo,novo.nuevo_parametro())
             inst=param.param_str()+" = "+tempo.temp_str()+";";
             lista_temp.append(inst)
@@ -30,6 +34,7 @@ class LlamarFuncMetodo(Instruccion):
             #novo.nuevo_codigo_3d("$s0[$sp] = " + str(cada[1].contenido) + ";#push param")
         #novo.nuevo_codigo_3d("$s0[$sp] = $t2;#push param")
         novo.push_mi_alcance()
+
 
         for cada in lista_temp:
             novo.nuevo_codigo_3d(cada)
@@ -52,8 +57,18 @@ class LlamarFuncMetodo(Instruccion):
         novo.pop_mi_alcance()
 
         print("Implementar Tipo Del Retorno")
-        ret_n =str(Tabla.nuevo_retorno())
-        novo.nuevo_codigo_3d("$v"+ret_n+ " = $v;")
-        return  Temporal(None,0,"v"+ret_n)
+
+        corre=Tabla.nuevo_parametro()
+
+
+
+        Te =  Temporal(None,0,"v"+str(corre+2))
+        #Tabla.nuevo_temporal("$v"+str(corre+2),Te)
+        return Te
     def str_arbol(self):
         pass
+
+    def pop_retorno(self, Tabla,reto):
+        Tabla.nuevo_codigo_3d(reto + " = $s2[$v];#Valor En Pila Retorno")
+        Tabla.nuevo_codigo_3d("unset($s2[$v]);")
+        Tabla.nuevo_codigo_3d("$v = $v - 1;")

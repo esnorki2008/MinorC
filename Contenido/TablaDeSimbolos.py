@@ -44,8 +44,8 @@ class TablaDeSimbolos:
         tmp = self
         while tmp is not None:
             for cada in tmp.dic_temporales.items():
-                self.nuevo_codigo_3d("$sp = $sp + 1;")
-                self.nuevo_codigo_3d("$s0[$sp] = "+cada[1].contenido+";#push alcance")
+                self.nuevo_codigo_3d("$sp1 = $sp1 + 1;")
+                self.nuevo_codigo_3d("$s3[$sp1] = "+cada[1].contenido+";#push alcance")
             tmp = tmp.tabla_padre
 
     def pop_mi_alcance(self):
@@ -53,7 +53,7 @@ class TablaDeSimbolos:
         volcado = []
         while tmp is not None:
             for cada in  tmp.dic_temporales.items():
-                vol_item=("$sp = $sp - 1;",cada[1].contenido+" = $s0[$sp]"+";#pop alcance")
+                vol_item=("$sp1 = $sp1 - 1;",cada[1].contenido+" = $s3[$sp1]"+";#pop alcance")
                 volcado.append(vol_item)
 
             tmp = tmp.tabla_padre
@@ -61,6 +61,7 @@ class TablaDeSimbolos:
         for cada in reversed(volcado):
 
             self.nuevo_codigo_3d(cada[1])
+            self.nuevo_codigo_3d("unset($s3[$sp1]);")
             self.nuevo_codigo_3d(cada[0])
 
 
@@ -73,9 +74,14 @@ class TablaDeSimbolos:
 
     def mi_tabla_de_retornos(self):
         self.nuevo_codigo_3d("retornos:")
-        self.nuevo_codigo_3d("if ($ra == -1) exit;")
+        self.nuevo_codigo_3d("if ($sp1 > 1000) goto stacko;")
+        self.nuevo_codigo_3d("if ($sp  > 1000) goto stacko;")
+        self.nuevo_codigo_3d("if ($ra  < 0) exit;")
         for i in range(1,self.return_address+1):
             self.nuevo_codigo_3d("if ($s1[$ra] == "+str(i)+ ") goto ra"+str(i)+" ;")
+        self.nuevo_codigo_3d("stacko:")
+        self.nuevo_codigo_3d("print(\"Desbordamiento de pila\");")
+        self.nuevo_codigo_3d("exit;")
 
     def nuevo_correlativo(self):
         self.correlativo = self.correlativo + 1
@@ -109,6 +115,10 @@ class TablaDeSimbolos:
         for cada in self.codigo_3d:
             print(cada)
 
+    def ultimo_redundante(self,nuevo):
+        if self.codigo_3d[-1] != nuevo :
+            self.nuevo_codigo_3d(nuevo)
+
     def nuevo_temporal(self, llave, valor):
         self.dic_temporales[llave] = valor
 
@@ -121,7 +131,8 @@ class TablaDeSimbolos:
         tmp = self
         while tmp.tabla_padre is not None:
             tmp = tmp.tabla_padre
-
+        print(titulo)
+        print(descripcion)
         tmp.lst_errores.append(Error(titulo, descripcion, tipo, tupla))
 
     def buscar_temporal(self, nombre, tupla, default):

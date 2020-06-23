@@ -16,6 +16,8 @@ class Declaracion(Instruccion):
         if valor_exec is None:
             valor_exec = self.valor.ejecutar_3D(Tabla)
 
+        self.valor.pop_retorno(Tabla,valor_exec.contenido)
+
         ver_tipo = valor_exec.tipo
         for cada in self.nombre:
             temp = Temporal(None, ver_tipo, correlativo=Tabla.nuevo_correlativo())

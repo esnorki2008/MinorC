@@ -10,9 +10,19 @@ class FuncReturn(Instruccion):
 
     def ejecutar_3D(self, Tabla):
         #print(self.expresion)
+
+
+
         tempo=self.expresion.ejecutar_3D(Tabla)
-        inst = "$v = " + tempo.temp_str() + ";#Dando Retorno";
+        self.expresion.pop_retorno(Tabla, tempo.contenido)
+
+        inst = "$v = $v + 1;";
         Tabla.nuevo_codigo_3d(inst)
+        inst = " $s2[$v] = "+ tempo.temp_str() + ";#Dando Retorno";
+        Tabla.nuevo_codigo_3d(inst)
+
+
+
         Tabla.nuevo_codigo_3d("goto retornos;")
 
     def str_arbol(self):

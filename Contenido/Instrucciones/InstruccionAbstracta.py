@@ -16,8 +16,17 @@ class Instruccion(ABC):
     def str_arbol(self):
         pass
 
+    def pop_retorno(self, Tabla,et):
+        pass
+
     @abstractmethod
     def ejecutar_3D(self,Tabla):
         pass
 
-
+    def tipo_a_str(self,tipo):
+        if tipo == 0:
+            return  "entero"
+        elif tipo == 1:
+            return  "decimal"
+        elif tipo == 2:
+            return  "cadena"

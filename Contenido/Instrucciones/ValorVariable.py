@@ -12,7 +12,6 @@ class ValorVariable(Instruccion):
     def ejecutar_3D(self, Tabla):
         vari = Tabla.buscar_temporal(self.nombre,self.tupla,None)
         if vari is None:
-
             return Temporal(0,0)
         else :
             return  vari

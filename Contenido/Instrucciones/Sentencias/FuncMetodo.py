@@ -26,13 +26,19 @@ class FuncMetodo(Instruccion):
             Tabla.nuevo_codigo_3d(init)
             init="$ra=-1;#null ptr"
             Tabla.nuevo_codigo_3d(init)
-            init = "$v=0;"
+            init = "$v=0;#Ptr Retornos"
+            Tabla.nuevo_codigo_3d(init)
+            init = "$s2=array();"
+            Tabla.nuevo_codigo_3d(init)
+            init = "$sp1=-1;"
+            Tabla.nuevo_codigo_3d(init)
+            init = "$s3=array();"
             Tabla.nuevo_codigo_3d(init)
         if len(self.param) > 0:
             self.simular_pop(novo)
 
         self.cuerpo.ejecutar_3D(novo);
-        Tabla.nuevo_codigo_3d("goto retornos;")
+        Tabla.ultimo_redundante("goto retornos;")
 
     def str_arbol(self):
         pass
