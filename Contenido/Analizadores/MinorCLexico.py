@@ -34,7 +34,6 @@ tokens = [
              'COMA',
              'IDENTIFICADOR',
              'DOBLEPUNTO',
-             'DOLAR',
              'IGUAL',
              'MOD',
              'NOT',
@@ -67,14 +66,15 @@ tokens = [
              'SHIFTDIGUAL',
              'ANDIGUAL',
              'XORIGUAL',
-             'ORIGUAL'
+             'ORIGUAL',
+             'PUNTO'
 
 
          ] + list(reserved.values())
 
 # Tokens
 t_IGUAL = r'\='
-
+t_PUNTO = r'\.'
 t_MASIGUAL = r'\+\='
 t_MENOSIGUAL = r'\-\='
 t_PORIGUAL = r'\*\='
@@ -104,7 +104,6 @@ t_DIVIDIDO = r'/'
 t_PUNTOCOMA = r';'
 t_COMA = r','
 t_DOBLEPUNTO = r':'
-t_DOLAR = r'\$'
 
 t_MOD = r'\%'
 t_NOT = r'\!'

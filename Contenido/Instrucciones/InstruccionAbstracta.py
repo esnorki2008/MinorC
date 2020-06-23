@@ -19,6 +19,9 @@ class Instruccion(ABC):
     def pop_retorno(self, Tabla,et):
         pass
 
+    def guardar_struct(self, Tabla):
+        pass
+
     @abstractmethod
     def ejecutar_3D(self,Tabla):
         pass
@@ -30,3 +33,5 @@ class Instruccion(ABC):
             return  "decimal"
         elif tipo == 2:
             return  "cadena"
+        else:
+            return tipo

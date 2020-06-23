@@ -24,30 +24,32 @@ class Asignacion(Instruccion):
                 #temp = vari
                 #mi_expresion = temp.temp_str() + "=" + valor_exec.temp_str() + ";"
                 if self.tipo_asignacion == "+=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " + "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " + "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "-=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " - "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " - "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "*=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " * "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " * "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "/=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " / "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " / "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "%=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " % "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " % "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "<<=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " << "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " << "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == ">>=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " >> "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " >> "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "&=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " & "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " & "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "^=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " ^ "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " ^ "+ str(valor_exec.contenido)+";")
                 elif self.tipo_asignacion == "|=":
-                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " | "+ str(valor_exec.contenido))
+                    Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " | "+ str(valor_exec.contenido)+";")
                 else:
-                    Tabla.reemplazar_ultimo_codigo_3d(valor_exec.temp_str(),vari.temp_str())
-
-                print(vari.contenido)
-                #Tabla.nuevo_codigo_3d(mi_expresion)
+                    rst=Tabla.reemplazar_ultimo_codigo_3d(valor_exec.temp_str(),vari.temp_str())
+                    if rst is None:
+                        mi_expresion = vari.contenido + " = " + valor_exec.temp_str() + ";"
+                        Tabla.nuevo_codigo_3d(mi_expresion)
+                #print(vari.contenido)
+                #
                 #print()
 
 

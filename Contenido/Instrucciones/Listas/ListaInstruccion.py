@@ -15,5 +15,9 @@ class ListaInstruccion(Instruccion):
 
         #return self.contenido
 
+    def homogenizar_tipos(self,tipo_dado):
+        for each in self.contenido:
+            each.tipo=tipo_dado
+
     def str_arbol(self):
         pass

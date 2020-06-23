@@ -56,11 +56,10 @@ class LlamarFuncMetodo(Instruccion):
         #novo.nuevo_codigo_3d("$sp = $sp - 1;")
         novo.pop_mi_alcance()
 
-        print("Implementar Tipo Del Retorno")
 
         corre=Tabla.nuevo_parametro()
 
-
+        print("Implementar Tipo Del Retorno")
 
         Te =  Temporal(None,0,"v"+str(corre+2))
         #Tabla.nuevo_temporal("$v"+str(corre+2),Te)

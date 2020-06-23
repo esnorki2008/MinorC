@@ -23,7 +23,13 @@ from Contenido.Instrucciones.Sentencias.FuncSwitch import FuncSwitch
 from Contenido.Instrucciones.Sentencias.Variaciones import Variaciones
 
 from Contenido.Instrucciones.FuncionesPropias.FuncPrintF import FuncPrintF
+from Contenido.Instrucciones.FuncionesPropias.FuncScanf import FuncScanF
 
+from Contenido.Instrucciones.Estructuras.ContenidoStruct import ContenidoStruct
+from Contenido.Instrucciones.Estructuras.DefinirStruct import DefinirStruct
+from Contenido.Instrucciones.Estructuras.DeclaracionStruct import DeclaracionStruct
+from Contenido.Instrucciones.Estructuras.AsignarStruct import AsignarStruct
+from Contenido.Instrucciones.Estructuras.ValorStruct import ValorStruct
 precedence = (
     ('left', 'OR'),
     ('left', 'AND'),
@@ -52,10 +58,32 @@ def p_metodos_lista_solo(t):
     'lista_metodos :  metodos'
     t[0]=ListaMetodos([t[1]])
 
+#===================================Structs================
+def p_declaracion_struct_a(t):
+    'metodos : STRUCT IDENTIFICADOR LLAA muhco_decla_struct LLAC'
+    tp = find_column(entrada, t.slice[1])
+    t[0] = DefinirStruct(t[2], t[4], tp)
+
+def p_instruccion_declaracion_struct_lista(t):
+    'muhco_decla_struct : muhco_decla_struct decla_struct'
+    t[0]=t[1]
+    t[0].append(t[2])
+
+def p_instruccion_declaracion_struct_epsilon(t):
+    'muhco_decla_struct : decla_struct'
+    t[0]=[t[1]]
+
+def p_instruccion_declaracion_struct_puntual(t):
+    'decla_struct : tipo mdecla  PUNTOCOMA'
+    tp = find_column(entrada, t.slice[3])
+    t[0]=ContenidoStruct(t[1],t[2],tp)
+#===============================Metodos==========
 def p_metodos_declara(t):
     'metodos : tipo IDENTIFICADOR PARA parametros PARC instruccion'
     tp = find_column(entrada, t.slice[2])
     t[0]=FuncMetodo(t[2],t[4],t[6],tp)
+
+
 
 def p_metodos_declara_parametros_muchos(t):
     'parametros : parametros COMA tipo IDENTIFICADOR'
@@ -82,9 +110,7 @@ def p_instruccion(t):
 def p_instrucciones_inicio(t):
     'instrucciones : instruccion '
     t[0] = ListaInstruccion([t[1]])
-#===================================Structs================
-def p_declaracion_struct(t):
-    'instruccion : STRUCT IDENTIFICADOR LLAA instrucciones LLAC'
+
 
 #==============================Definicion De COntenido Instruccioon===============
 def p_sentencia_encapsulado(t):
@@ -235,19 +261,45 @@ def p_tipo(t):
     elif t[1]=="float":
         t[0]=2
     else:
-        t[0]=-1
+        t[0]=t[2]
 
+#===================Operaciones Con Structs==============
+def p_instruccion_declaracion_struct(t):
+    'instruccion : STRUCT IDENTIFICADOR IDENTIFICADOR  PUNTOCOMA'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0]=DeclaracionStruct(t[2],t[3],tp)
 
-
-
+def p_instruccion_asignar_valor_struct(t):
+    'instruccion : IDENTIFICADOR PUNTO IDENTIFICADOR m_igual expresiones PUNTOCOMA'
+    tp = find_column(entrada, t.slice[3])
+    t[0]=AsignarStruct(t[1],t[3],t[5],t[4],tp)
+#====================Operaciones Con Variables Simples=========
 def p_instruccion_declaracion(t):
-    'instruccion : tipo mdecla IGUAL expresiones PUNTOCOMA'
-
-
+    'instruccion : tipo mdecla  IGUAL expresiones masinde PUNTOCOMA'
     global entrada
     tp = find_column(entrada, t.slice[3])
-    t[0] = Declaracion(t[2], t[4], t[1], tp)
+    t[0]=t[5]
+    t[0].homogenizar_tipos(t[1]);
+    t[0].agregar(Declaracion(t[2], t[4], t[1], tp))
 
+def p_instruccion_declaracion_vac(t):
+    'instruccion : tipo mdecla   PUNTOCOMA'
+    global entrada
+    tp = find_column(entrada, t.slice[3])
+    t[0]= ListaInstruccion([(Declaracion(t[2], None, t[1], tp))])
+
+def p_instruccion_mucha_declaracion_algo(t):
+    'masinde : masinde COMA mdecla IGUAL expresiones   '
+    global entrada
+    tp = find_column(entrada, t.slice[2])
+    t[0]=t[1]
+    t[0].agregar(Declaracion(t[3],t[5],None,tp))
+
+
+def p_instruccion_mucha_declaracion_epsilon(t):
+    'masinde : '
+    t[0] = ListaInstruccion([])
 
 def p_instruccion_asignacion(t):
     'instruccion : mdecla m_igual expresiones PUNTOCOMA'
@@ -261,6 +313,7 @@ def p_instruccion_igualaciones(t):
             | MENOSIGUAL
             | PORIGUAL
             | DIVIGUAL
+            | MODIGUAL
             | SHIFTIIGUAL
             | SHIFTDIGUAL
             | ANDIGUAL
@@ -373,6 +426,18 @@ def p_valor_variable_dec(t):
     global entrada
     tp = find_column(entrada, t.slice[1])
     t[0] = Variaciones(t[1],t[2], tp )
+
+def p_valor_struct_llamado(t):
+    'valor : IDENTIFICADOR PUNTO IDENTIFICADOR'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = ValorStruct(t[1],t[3], tp)
+
+def p_valor_scanf(t):
+    'valor : SCANF PARA PARC'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = FuncScanF(tp)
 
 def p_valor_funcion_llamado(t):
     'valor : IDENTIFICADOR PARA listado_parametros PARC'

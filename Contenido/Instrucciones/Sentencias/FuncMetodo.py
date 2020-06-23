@@ -45,6 +45,7 @@ class FuncMetodo(Instruccion):
 
     def simular_pop(self,novo):
         for cada in reversed(self.param):
+
            temp = Temporal(None,self.dar_tipo(cada[0]),novo.nuevo_correlativo())
            mi_expresion = temp.temp_str() + "= $s0[$sp];#pop "
            novo.nuevo_codigo_3d(mi_expresion)
@@ -55,4 +56,4 @@ class FuncMetodo(Instruccion):
         #novo.nuevo_codigo_3d(nombre_metodo + ":")
 
     def dar_tipo(self,tipo_supuesto):
-        return ""
+        return tipo_supuesto

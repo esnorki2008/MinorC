@@ -30,7 +30,6 @@ class NodoBinario(Instruccion):
         pass
 
     def mi_tipo_ope(self,izquierda,operando,derecha,tabla):
-
         if operando == "+" :
             return self.tipo_mas(izquierda,derecha,operando,tabla)
         elif operando == "-" or operando == "*" or operando == "/" or operando == "%" :
@@ -84,8 +83,8 @@ class NodoBinario(Instruccion):
                 tabla.nuevo_error("Error De Tipos", desc, 0, self.tupla)
                 return 0
         else:
-            desc = "No se Puede '" + op + "' con tipos: " + self.tipo_a_str(izquierda.tipo) + " " + self.tipo_a_str(
-                derecha.tipo)
+
+            desc = "No se Puede '" + op + "' con tipos: " + self.tipo_a_str(izquierda.tipo) + " " + self.tipo_a_str(derecha.tipo)
             tabla.nuevo_error("Error De Tipos", desc, 0, self.tupla)
             return 0
 

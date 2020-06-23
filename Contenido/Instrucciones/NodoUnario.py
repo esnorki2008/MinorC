@@ -22,7 +22,10 @@ class NodoUnario(Instruccion):
 
         mi_expresion=temp.temp_str()+"="+tmp_op+exec_op.temp_str()+";"
         Tabla.nuevo_codigo_3d(mi_expresion)
+        if self.operando == "&":
+            temp.ref=True
         self.mi_tempo=temp
+
         return temp
 
     def mi_tipo_ope(self,op,operando,Tabla):
@@ -34,7 +37,8 @@ class NodoUnario(Instruccion):
                 Tabla.nuevo_error("Error De Tipos", desc, 0, self.tupla)
                 return 0;
         else:
-            print("Tipo Desconocido :"+str(op))
+            return str(op)
+            #print("Tipo Desconocido :"+str(op))
 
         #print(izquierda.tipo)
         return 0

@@ -20,6 +20,7 @@ class TablaDeSimbolos:
     lst_errores = None
     parametros = 0
     dic_temporales = {}
+    dic_struct = {}
     return_address = 0
     contador_retornos=0
 
@@ -31,10 +32,61 @@ class TablaDeSimbolos:
         self.dic_temporales = {}
         self.tabla_padre = tabla_padre
         self.return_address=0
+        self.dic_struct = {}
         if tabla_padre is None:
             self.correlativo = 0
         else:
             self.correlativo = self.tabla_padre.correlativo + 1
+
+    def nuevo_struct(self,llave,struct):
+        self.dic_struct[llave] = struct
+
+    def declarar_struct_busqueda(self,nombre,tempo_var,tupla):
+        temp = self
+        while temp.tabla_padre is not None:
+            temp = temp.tabla_padre
+
+        for cada in temp.dic_struct.items():
+            if cada[0]==nombre:
+                cada[1].colocar_inicializacion(temp,tempo_var)
+                return
+
+        self.nuevo_error("struct '"+nombre+ "' no definido", "se intento usar un struct no definido", 0, tupla)
+
+    def struct_busqueda_atributo(self,nombre,tempo_var,tupla):
+        temp = self
+        while temp.tabla_padre is not None:
+            temp = temp.tabla_padre
+
+
+        for cada in temp.dic_struct.items():
+            if cada[0]==nombre:
+                verdad=cada[1].struct_busqueda_atributo(temp,tempo_var)
+                if verdad == True:
+                    return True
+                else:
+                    descrip ="el struct '" + nombre + "' no tiene el atributo: " + tempo_var
+                    self.nuevo_error("struct '" + nombre + "' no tiene atributo",descrip, 0, tupla)
+
+        self.nuevo_error("struct '" + nombre + "' no definido", "se intento usar un struct no definido", 0, tupla)
+        return False
+
+    def struct_busqueda_atributo_tipo(self, nombre, tempo_var, tupla):
+            temp = self
+            while temp.tabla_padre is not None:
+                temp = temp.tabla_padre
+
+            for cada in temp.dic_struct.items():
+                if cada[0] == nombre:
+                    verdad = cada[1].struct_busqueda_atributo_tipo(temp, tempo_var)
+                    if verdad is not None:
+                        return verdad
+                    else:
+                        descrip = "el struct '" + nombre + "' no tiene el atributo: " + tempo_var
+                        self.nuevo_error("struct '" + nombre + "' no tiene atributo", descrip, 0, tupla)
+
+            self.nuevo_error("struct '" + nombre + "' no definido", "se intento usar un struct no definido", 0, tupla)
+            return None
 
     def nuevo_retorno(self):
         self.contador_retornos = self.contador_retornos +1 ;
@@ -107,8 +159,12 @@ class TablaDeSimbolos:
             return
 
         text:str=tmp.codigo_3d[-1]
+        cmp = text
         text=text.replace(ultimo,correcto)
         tmp.codigo_3d[-1]=text
+        if cmp == text :
+            return None
+        return True
 
     def imprimir_codigo_3d(self):
         self.mi_tabla_de_retornos()
@@ -131,8 +187,6 @@ class TablaDeSimbolos:
         tmp = self
         while tmp.tabla_padre is not None:
             tmp = tmp.tabla_padre
-        print(titulo)
-        print(descripcion)
         tmp.lst_errores.append(Error(titulo, descripcion, tipo, tupla))
 
     def buscar_temporal(self, nombre, tupla, default):

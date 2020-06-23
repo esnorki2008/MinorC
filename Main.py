@@ -14,7 +14,7 @@ from Contenido.TablaDeSimbolos import TablaDeSimbolos
 cadena1 = '''
         int main(){
 
-            int m=factorial(5);
+            int m=factorial(factorial(3));
             printf(m);
         }
 
@@ -25,32 +25,6 @@ cadena1 = '''
         return 1;
 
 
-}
-
-'''
-
-
-
-
-
-
-
-cadena3='''int main() {
-    int x = Ackerman(3,4);
-    printf( x );
-    return 0;
-}
-
-int Ackerman(int m, int n)
-{
-    if(m==0)
-      return n+1;
-    
-        if(n==0)
-           return Ackerman(m-1, 1);
-        
-           return Ackerman(m-1, Ackerman(m, n-1));
-    
 }
 
 '''
@@ -73,35 +47,25 @@ int fibo(int n)
 }
 '''
 
-cadena4='''
+cadena3='''
+
+
+struct punto {
+    int x,h;
+    int y;
+}
 int main()
 {
-    int num=2;
-     switch(num+9)
-     {
-         case 1+10:
-           printf(11);
-         case 2:
-           printf(2);
-         case 3:
-           printf(3);
-         default:
-           printf(num+2);
-    }
-   
-   return 0;
+    struct punto mivar;
+    mivar.x+=1;
+    mivar.x*=9;
+    int g=mivar.x+8*8;
+    g +=5+scanf();
+    printf(g);    
 }
 '''
-cadena5='''
-int main()
-{
-    int f=1;
-    f+=2+8+8;
-    printf(f);
-   
-}
-'''
-rst=analizar_ascendente(cadena5)
+
+rst=analizar_ascendente(cadena3)
 tab = TablaDeSimbolos(None)
 if rst is None :
     print("Error")
