@@ -5,12 +5,14 @@ class Instruccion(ABC):
     tupla: () = (0, 0)
     mi_tempo= None
     tipo = None
+    nombre_padre = None
     def n_t(self, tupla: ()):
         self.tupla = tupla
 
     def __init__(self, *args):
         self.mi_tempo=None
         self.tipo=None
+        self.nombre_padre = None
 
     @abstractmethod
     def str_arbol(self):
@@ -33,5 +35,11 @@ class Instruccion(ABC):
             return  "decimal"
         elif tipo == 2:
             return  "cadena"
+        elif tipo == 3:
+            return  "arreglo entero"
+        elif tipo == 4:
+            return  "arreglo decimal"
+        elif tipo == 5:
+            return  "arreglo cadena"
         else:
             return tipo

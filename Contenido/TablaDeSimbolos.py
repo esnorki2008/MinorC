@@ -150,6 +150,7 @@ class TablaDeSimbolos:
         tmp.codigo_3d.append(nuevo)
 
     def reemplazar_ultimo_codigo_3d(self,ultimo,correcto):
+        return  None
         tmp = self
         while tmp.tabla_padre is not None:
             tmp = tmp.tabla_padre
@@ -166,9 +167,11 @@ class TablaDeSimbolos:
             return None
         return True
 
-    def imprimir_codigo_3d(self):
+    def terminar_codigo_3d(self):
         self.mi_tabla_de_retornos()
-        for cada in self.codigo_3d:
+
+    def imprimir_codigo_3d(self,lista_3d):
+        for cada in lista_3d:
             print(cada)
 
     def ultimo_redundante(self,nuevo):

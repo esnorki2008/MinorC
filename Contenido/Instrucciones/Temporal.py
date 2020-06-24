@@ -4,11 +4,13 @@ class Temporal:
     correlativo = -1
     ref = False
     es_parametro=False
+    lista_corchetes = []
     def __init__(self, contenido, tipo, correlativo=-1,es_parametro = False):
         self.ref = True
         self.tipo = tipo
         self.correlativo = correlativo
         self.es_parametro = es_parametro
+        self.lista_corchetes = []
 
         if contenido is None:
             if es_parametro:

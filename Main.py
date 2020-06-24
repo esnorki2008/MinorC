@@ -30,11 +30,7 @@ cadena1 = '''
 '''
 
 
-cadena2='''int main() {
-    int a=(fibo(7));
-    printf(a);
-    return 0;
-}
+cadena2='''
 
 int fibo(int n)
 {
@@ -44,6 +40,12 @@ int fibo(int n)
         return n;
     else
        return fibo(n - 2) + fibo(n - 1);
+}
+
+int main() {
+    int a=(fibo(7));
+    printf(a);
+    return 0;
 }
 '''
 
@@ -56,23 +58,68 @@ struct punto {
 }
 int main()
 {
-    struct punto mivar;
-    mivar.x+=1;
-    mivar.x*=9;
-    int g=mivar.x+8*8;
-    g +=5+scanf();
-    printf(g);    
+    
+    int arre[11];
+    arre[0]=1;
+    arre[1]=5;
+    arre[2]=6;
+    arre[3]=7;
+    arre[4]=14;
+    arre[5]=64;
+    arre[6]=34;
+    arre[7]=22;
+    arre[8]=21;
+    arre[9]=20;
+    
+    for (int j=0;j<10;j++){
+        for (int i=0;i<9;i++){
+            if(arre[i]>arre[i+1]){
+                int tempo = arre[i+1];
+                arre[i+1] = arre[i];
+                arre[i] = tempo;
+            }
+        }
+    }
+    
+    for (int i=0;i<10;i++){
+            printf(arre[i]);
+            printf("\n");
+    }
 }
 '''
 
-rst=analizar_ascendente(cadena3)
+cadena4 = '''
+struct punto {
+    int x,h;
+    int y;
+}
+int main()
+{
+    
+    if(1==1){
+      printf("1");  
+    }else if(2==2){
+        printf("2");
+    }else{
+        printf("3");
+    }
+}
+'''
+rst=analizar_ascendente(cadena2)
 tab = TablaDeSimbolos(None)
 if rst is None :
     print("Error")
 else:
     pass
     rst.ejecutar_3D(tab)
-    tab.imprimir_codigo_3d()
+    tab.terminar_codigo_3d()
+    from Contenido.Optimo import Optimo
+    Optm = Optimo()
+    lst_sal=tab.codigo_3d
+    #lst_sal = Optm.quitar_etiquetas_sin_saltos(lst_sal)
+    tab.imprimir_codigo_3d(lst_sal)
+
+
     #print(tab.codigo_3d)
     #tab.imprimir_temporales()
 

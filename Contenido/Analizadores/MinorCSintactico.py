@@ -263,18 +263,58 @@ def p_tipo(t):
     else:
         t[0]=t[2]
 
+
+#=====================================Arreglos===============
+def p_mucho_corchete(t):
+    'corche : corche CORA expresiones CORC'
+    t[0]=t[1]
+    t[0].append(t[3])
+def p_mucho_corchete_epsilon(t):
+    'corche : '
+    t[0]=[]
+
+#def p_mucho_corchete_vac(t):
+#    'corche : corche CORA CORC'
+#    t[0]=t[1]
+#    t[0].append(None)
+
+
+
 #===================Operaciones Con Structs==============
 def p_instruccion_declaracion_struct(t):
-    'instruccion : STRUCT IDENTIFICADOR IDENTIFICADOR  PUNTOCOMA'
+    'instruccion : STRUCT IDENTIFICADOR IDENTIFICADOR corche PUNTOCOMA'
     global entrada
     tp = find_column(entrada, t.slice[1])
-    t[0]=DeclaracionStruct(t[2],t[3],tp)
+    t[0]=DeclaracionStruct(t[2],t[3],tp,t[4])
 
 def p_instruccion_asignar_valor_struct(t):
-    'instruccion : IDENTIFICADOR PUNTO IDENTIFICADOR m_igual expresiones PUNTOCOMA'
+    'instruccion : IDENTIFICADOR  PUNTO  IDENTIFICADOR m_igual expresiones PUNTOCOMA'
     tp = find_column(entrada, t.slice[3])
     t[0]=AsignarStruct(t[1],t[3],t[5],t[4],tp)
+
+
+
+#def p_instruccion_asignar_valor_struct_CORC(t):
+#    'instruccion : IDENTIFICADOR ab IDENTIFICADOR m_igual expresiones PUNTOCOMA'
+#    tp = find_column(entrada, t.slice[3])
+#    t[0]=AsignarStruct(t[1],t[3],t[5],t[4],tp)
+
 #====================Operaciones Con Variables Simples=========
+def p_instruccion_asignacion(t):
+    'instruccion : mdecla corchelle arre_str_val m_igual expresiones PUNTOCOMA '
+    global entrada
+    tp = find_column(entrada, t.slice[6])
+    if t[3] is None:
+        t[0] = Asignacion(t[1], t[5],t[4], tp,t[2])
+    else:
+        t[0] = t[0]=AsignarStruct(t[1],t[3],t[5],t[4],tp,t[2])
+
+def p_instruccion_a(t):
+    'arre_str_val :   PUNTO IDENTIFICADOR  '
+    t[0]=t[2]
+def p_instruccion_b(t):
+    'arre_str_val : '
+    t[0] = None
 def p_instruccion_declaracion(t):
     'instruccion : tipo mdecla  IGUAL expresiones masinde PUNTOCOMA'
     global entrada
@@ -284,10 +324,10 @@ def p_instruccion_declaracion(t):
     t[0].agregar(Declaracion(t[2], t[4], t[1], tp))
 
 def p_instruccion_declaracion_vac(t):
-    'instruccion : tipo mdecla   PUNTOCOMA'
+    'instruccion : tipo mdecla corche  PUNTOCOMA'
     global entrada
-    tp = find_column(entrada, t.slice[3])
-    t[0]= ListaInstruccion([(Declaracion(t[2], None, t[1], tp))])
+    tp = find_column(entrada, t.slice[4])
+    t[0]= ListaInstruccion([(Declaracion(t[2], None, t[1], tp,t[3]))])
 
 def p_instruccion_mucha_declaracion_algo(t):
     'masinde : masinde COMA mdecla IGUAL expresiones   '
@@ -301,11 +341,7 @@ def p_instruccion_mucha_declaracion_epsilon(t):
     'masinde : '
     t[0] = ListaInstruccion([])
 
-def p_instruccion_asignacion(t):
-    'instruccion : mdecla m_igual expresiones PUNTOCOMA'
-    global entrada
-    tp = find_column(entrada, t.slice[4])
-    t[0] = Asignacion(t[1], t[3],t[2], tp)
+
 
 def p_instruccion_igualaciones(t):
     '''m_igual : IGUAL
@@ -415,6 +451,23 @@ def p_valor_variable(t):
     tp = find_column(entrada, t.slice[1])
     t[0] = ValorVariable(t[1], tp)
 
+def p_mucho_corchete_lleno(t):
+    'corchelle : corchelle CORA expresiones CORC'
+    t[0]=t[1]
+    t[0].append(t[3])
+
+def p_mucho_corchete_lleno_siempre(t):
+    'corchelle : CORA expresiones CORC'
+    t[0]=[t[2]]
+
+def p_valor_variable_arreglo(t):
+    'valor : IDENTIFICADOR corchelle'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = ValorVariable(t[1], tp,t[2])
+
+
+
 def p_valor_variable_inc(t):
     'expresiones : IDENTIFICADOR MASDOBLE'
     global entrada
@@ -428,10 +481,16 @@ def p_valor_variable_dec(t):
     t[0] = Variaciones(t[1],t[2], tp )
 
 def p_valor_struct_llamado(t):
-    'valor : IDENTIFICADOR PUNTO IDENTIFICADOR'
+    'valor : IDENTIFICADOR  PUNTO IDENTIFICADOR'
     global entrada
     tp = find_column(entrada, t.slice[1])
     t[0] = ValorStruct(t[1],t[3], tp)
+
+def p_valor_variable_arreglo_struct(t):
+    'valor : IDENTIFICADOR corchelle PUNTO IDENTIFICADOR'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = ValorStruct(t[1],t[4], tp,t[2])
 
 def p_valor_scanf(t):
     'valor : SCANF PARA PARC'
