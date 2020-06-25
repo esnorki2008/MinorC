@@ -11,6 +11,19 @@ class ValorStruct(Instruccion):
         self.tupla=tp
         self.corche = corche
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Valor Struct " + str(self.tipo) + " : " + str(self.nombre)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += str(id(self)) + "c[shape=rect,sides=4,skew=.4,label=\"" + "[]" + "\"]\n"
+        concatenar += str(id(self)) + " -> " + str(id(self)) + "c" + "\n"
+        concatenar += str(id(self)) + " -> " + str(id(self.contenido))  + "\n"
+        concatenar += self.contenido.str_arbol()
+        for cada in self.corche:
+            concatenar += cada.str_arbol()
+            concatenar += str(id(self)) + "c" + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         concat = ""
         for cor in self.corche:
@@ -33,5 +46,4 @@ class ValorStruct(Instruccion):
         return reto
 
 
-    def str_arbol(self):
-        pass
+

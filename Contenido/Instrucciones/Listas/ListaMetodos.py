@@ -6,6 +6,16 @@ class ListaMetodos(Instruccion):
     def __init__(self, contenido : []):
         self.contenido = contenido
 
+    def str_arbol(self):
+        concatenar = "digraph G { \n"
+        expand = "Listado General"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        for con in self.contenido:
+            concatenar += str(id(self)) + " -> " + str(id(con))  + "\n"
+            concatenar += con.str_arbol()
+        concatenar += "\n }"
+        return concatenar
+
     def agregar(self,item):
         self.contenido.append(item)
 
@@ -30,5 +40,4 @@ class ListaMetodos(Instruccion):
 
         #return self.contenido
 
-    def str_arbol(self):
-        pass
+

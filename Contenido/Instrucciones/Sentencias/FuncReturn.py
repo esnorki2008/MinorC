@@ -8,6 +8,15 @@ class FuncReturn(Instruccion):
         self.tupla = tupla
         self.expresion=expresion
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "RETURN"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.expresion.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.expresion)) + "\n"
+
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         #print(self.expresion)
 
@@ -25,5 +34,3 @@ class FuncReturn(Instruccion):
 
         Tabla.nuevo_codigo_3d("goto retornos;")
 
-    def str_arbol(self):
-        pass

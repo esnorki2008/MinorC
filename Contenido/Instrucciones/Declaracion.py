@@ -12,6 +12,20 @@ class Declaracion(Instruccion):
         self.tupla = tupla
         self.corche = corche
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "DECLARACION " + str(self.nombre)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        if self.valor is not None:
+            concatenar += self.valor.str_arbol()
+            concatenar += str(id(self)) + " -> " + str(id(self.valor)) + "\n"
+        concatenar += "c"+str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + "[]" + "\"]\n"
+        concatenar += str(id(self)) + " -> " + "c"+str(id(self))  + "\n"
+        for cada in self.corche:
+            concatenar += cada.str_arbol()
+            concatenar += "c"+str(id(self))   + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def ejecutar_arreglo(self,Tabla):
         lista_val = []
         for cor in self.corche:
@@ -61,5 +75,4 @@ class Declaracion(Instruccion):
 
         # return self.contenido
 
-    def str_arbol(self):
-        pass
+

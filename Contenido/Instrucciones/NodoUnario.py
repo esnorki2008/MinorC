@@ -10,6 +10,14 @@ class NodoUnario(Instruccion):
         self.operando = operando
         self.tupla=tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand =  str(self.operando)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.operacion_unica.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.operacion_unica)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self,Tabla):
 
         exec_op = self.operacion_unica.ejecutar_3D(Tabla)
@@ -43,5 +51,4 @@ class NodoUnario(Instruccion):
         #print(izquierda.tipo)
         return 0
 
-    def str_arbol(self):
-        pass
+

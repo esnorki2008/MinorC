@@ -10,6 +10,12 @@ class Variaciones(Instruccion):
         self.nombre = nombre
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "VARIAR "+self.nombre+" "+self.operando
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         vari = Tabla.buscar_temporal(self.nombre,self.tupla,None)
         if vari is not None:
@@ -27,6 +33,4 @@ class Variaciones(Instruccion):
         return vari
         # return self.contenido
 
-    def str_arbol(self):
-        pass
 

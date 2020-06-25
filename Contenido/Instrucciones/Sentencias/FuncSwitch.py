@@ -5,6 +5,17 @@ class FuncSwitch(Instruccion):
     param = None
     cuerpo_switch = None
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "SWITCH"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.param.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.param)) + "\n"
+        for cada in self.cuerpo_switch:
+            concatenar += cada.str_arbol()
+            concatenar += str(id(self)) + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def __init__(self, param, cuerpo_switch,tupla):
         self.cuerpo_switch = cuerpo_switch
         self.param = param
@@ -25,5 +36,4 @@ class FuncSwitch(Instruccion):
         defa.ejecutar_3D(novo, temp,mi_eti)
         Tabla.nuevo_codigo_3d(mi_eti+":")
 
-    def str_arbol(self):
-        pass
+

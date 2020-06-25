@@ -10,6 +10,17 @@ class ValorVariable(Instruccion):
         self.tupla=tupla
         self.corche=corche
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Valor Variable " +  str(self.nombre)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += "c"+str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + "[]" + "\"]\n"
+        concatenar += str(id(self)) + " -> " + "c"+str(id(self))  + "\n"
+        for cada in self.corche:
+            concatenar += cada.str_arbol()
+            concatenar += "c"+str(id(self))  + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def ejecutar_arreglo(self,Tabla):
 
 
@@ -52,5 +63,4 @@ class ValorVariable(Instruccion):
             self.tipo = vari.tipo
             return  vari
 
-    def str_arbol(self):
-        pass
+

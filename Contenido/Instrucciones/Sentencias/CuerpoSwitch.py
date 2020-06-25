@@ -10,6 +10,17 @@ class CuerpoSwitch(Instruccion):
         self.param = param
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "CASE"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.param.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.param)) + "\n"
+        concatenar += self.cuerpo_si.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.cuerpo_si)) + "\n"
+
+        return concatenar
+
     def ejecutar_3D(self, Tabla, temp_padre ,eti_padre):
         if self.param is not None:
             temp = self.param.ejecutar_3D(Tabla);
@@ -24,5 +35,4 @@ class CuerpoSwitch(Instruccion):
         else:
             self.cuerpo_si.ejecutar_3D(Tabla);
 
-    def str_arbol(self):
-        pass
+

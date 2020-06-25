@@ -10,6 +10,15 @@ class ContenidoStruct(Instruccion):
         self.lst_nombres = lst_nombres
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Declaraciones Struct"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        for cada in self.lst_nombres:
+            concatenar += str(id(cada)) + "[shape=rect,sides=4,skew=.4,label=\"" + cada + "\"]\n"
+            concatenar += str(id(self))  + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def colocar_inicializacion(self,tabla,temporal):
         for cada in self.lst_nombres:
             inst = temporal + "[\"" + cada + "\"]" + " = " + self.val_defecto(self.tipo) + ";"
@@ -33,5 +42,4 @@ class ContenidoStruct(Instruccion):
         elif tipo == 1: return "0.0"
         elif tipo == 2:return " "
 
-    def str_arbol(self):
-        pass
+

@@ -20,4 +20,7 @@ class FuncPrintF(Instruccion):
             novo.nuevo_codigo_3d(inst)
 
     def str_arbol(self):
-        pass
+        concatenar = ""
+        expand = "PRINTF"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        return concatenar

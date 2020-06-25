@@ -14,6 +14,21 @@ class FuncFor(Instruccion):
         self.cuerpo = cuerpo
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "FOR"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.inst_inicio.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.inst_inicio)) + "\n"
+        concatenar += self.comprobador.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.comprobador)) + "\n"
+        concatenar += self.cuerpo.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.cuerpo)) + "\n"
+        if self.inst_cada is not None:
+            concatenar += self.inst_cada.str_arbol()
+            concatenar += str(id(self)) + " -> " + str(id(self.inst_cada)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         novo = TablaDeSimbolos(Tabla)
         self.inst_inicio.ejecutar_3D(novo)
@@ -33,5 +48,3 @@ class FuncFor(Instruccion):
         novo.nuevo_codigo_3d("out"+nombre_ciclo+":")
         # return self.contenido
 
-    def str_arbol(self):
-        pass

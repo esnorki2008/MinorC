@@ -12,4 +12,7 @@ class Hoja(Instruccion):
         return self.contenido
 
     def str_arbol(self):
-        pass
+        concatenar = ""
+        expand = "HOJA   "+str(self.contenido.contenido)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        return concatenar

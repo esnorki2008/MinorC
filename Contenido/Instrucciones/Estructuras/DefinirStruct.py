@@ -10,6 +10,15 @@ class DefinirStruct(Instruccion):
         self.lst_contenido = lst_contenido
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Struct " + str(self.nombre)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        for cada in self.lst_contenido:
+            concatenar += cada.str_arbol()
+            concatenar += str(id(self))  + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def guardar_struct(self, Tabla):
         Tabla.nuevo_struct(self.nombre,self)
 
@@ -37,5 +46,3 @@ class DefinirStruct(Instruccion):
     def ejecutar_3D(self, Tabla):
         pass
 
-    def str_arbol(self):
-        pass

@@ -12,6 +12,19 @@ class FuncIf(Instruccion):
         self.param = param
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "IF"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.param.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.param)) + "\n"
+        concatenar += self.cuerpo_si.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.cuerpo_si)) + "\n"
+        if self.cuerpo_no is not None:
+            concatenar += self.cuerpo_no.str_arbol()
+            concatenar += str(id(self)) + " -> " + str(id(self.cuerpo_no)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
 
 
@@ -52,5 +65,3 @@ class FuncIf(Instruccion):
 
         # return self.contenido
 
-    def str_arbol(self):
-        pass

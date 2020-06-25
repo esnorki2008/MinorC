@@ -12,6 +12,16 @@ class NodoBinario(Instruccion):
         self.operando = operando
         self.tupla=tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand =  str(self.operando)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.operador_izquierdo.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.operador_izquierdo)) + "\n"
+        concatenar += self.operador_derecho.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.operador_derecho)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self,Tabla):
         exec_iz = self.operador_izquierdo.ejecutar_3D(Tabla)
         exec_de = self.operador_derecho.ejecutar_3D(Tabla)
@@ -26,8 +36,7 @@ class NodoBinario(Instruccion):
 
 
 
-    def str_arbol(self):
-        pass
+
 
     def mi_tipo_ope(self,izquierda,operando,derecha,tabla):
         if operando == "+" :

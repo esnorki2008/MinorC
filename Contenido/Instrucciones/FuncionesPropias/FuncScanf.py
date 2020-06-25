@@ -15,4 +15,7 @@ class FuncScanF(Instruccion):
         return novo_tempo
 
     def str_arbol(self):
-        pass
+        concatenar = ""
+        expand = "SCANF"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        return concatenar

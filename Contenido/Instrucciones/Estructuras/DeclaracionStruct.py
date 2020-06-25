@@ -11,6 +11,17 @@ class DeclaracionStruct(Instruccion):
         self.tupla=tp
         self.corche = corche
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Declarar " + str(self.tipo) + " : " + str(self.nombre)
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += str(id(self)) + "c[shape=rect,sides=4,skew=.4,label=\"" + "[]" + "\"]\n"
+        concatenar += str(id(self)) + " -> " + str(id(self)) + "c" + "\n"
+        for cada in self.corche:
+            concatenar += cada.str_arbol()
+            concatenar += str(id(self)) + "c" + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         temp = Temporal(None,self.tipo, correlativo=Tabla.nuevo_correlativo())
         lista_val = []
@@ -31,5 +42,4 @@ class DeclaracionStruct(Instruccion):
 
         # return self.contenido
 
-    def str_arbol(self):
-        pass
+

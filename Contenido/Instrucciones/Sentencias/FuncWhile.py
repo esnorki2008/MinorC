@@ -10,6 +10,17 @@ class FuncWhile(Instruccion):
         self.param = param
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "WHILE"
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.param.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.param)) + "\n"
+        concatenar += self.cuerpo.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.cuerpo)) + "\n"
+
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
         novo = TablaDeSimbolos(Tabla)
         nombre_ciclo="label"+str(id(self))
@@ -28,5 +39,4 @@ class FuncWhile(Instruccion):
         novo.nuevo_codigo_3d("out"+nombre_ciclo+":")
         # return self.contenido
 
-    def str_arbol(self):
-        pass
+

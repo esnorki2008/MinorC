@@ -96,27 +96,21 @@ struct punto {
 int main()
 {
     
-    if(1==1){
-      printf("1");  
-    }else if(2==2){
-        printf("2");
-    }else{
-        printf("3");
-    }
+    printf("\\n");
 }
 '''
-rst=analizar_ascendente(cadena2)
+rst=analizar_ascendente(cadena4)
 tab = TablaDeSimbolos(None)
 if rst is None :
     print("Error")
 else:
-    pass
-    rst.ejecutar_3D(tab)
-    tab.terminar_codigo_3d()
-    from Contenido.Optimo import Optimo
-    Optm = Optimo()
+    print(rst.str_arbol());
+    #rst.ejecutar_3D(tab)
+    #tab.terminar_codigo_3d()
+        #from Contenido.Optimo import Optimo
+        #Optm = Optimo()
     lst_sal=tab.codigo_3d
-    #lst_sal = Optm.quitar_etiquetas_sin_saltos(lst_sal)
+        #lst_sal = Optm.quitar_etiquetas_sin_saltos(lst_sal)
     tab.imprimir_codigo_3d(lst_sal)
 
 

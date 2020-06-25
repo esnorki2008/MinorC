@@ -11,6 +11,17 @@ class FuncMetodo(Instruccion):
         self.nombre=nombre
         self.tupla = tupla
 
+    def str_arbol(self):
+        concatenar = ""
+        expand = "Declaracion Metodo-Funcion "+self.nombre
+        concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
+        concatenar += self.cuerpo.str_arbol()
+        concatenar += str(id(self)) + " -> " + str(id(self.cuerpo)) + "\n"
+        for cada in self.param:
+            concatenar += str(id(cada)) + "[shape=rect,sides=4,skew=.4,label=\"" + str(cada[1]) + "\"]\n"
+            concatenar += str(id(self)) + " -> " + str(id(cada)) + "\n"
+        return concatenar
+
     def ejecutar_3D(self, Tabla):
 
 
@@ -40,8 +51,7 @@ class FuncMetodo(Instruccion):
         self.cuerpo.ejecutar_3D(novo);
         Tabla.ultimo_redundante("goto retornos;")
 
-    def str_arbol(self):
-        pass
+
 
     def simular_pop(self,novo):
         for cada in reversed(self.param):
