@@ -150,22 +150,28 @@ class TablaDeSimbolos:
         tmp.codigo_3d.append(nuevo)
 
     def reemplazar_ultimo_codigo_3d(self,ultimo,correcto):
-        return  None
+        #return None
+
         tmp = self
         while tmp.tabla_padre is not None:
             tmp = tmp.tabla_padre
 
         if len(tmp.codigo_3d) == 0 :
             print("ERROR REEMPLAZANDO")
-            return
-
-        text:str=tmp.codigo_3d[-1]
-        cmp = text
-        text=text.replace(ultimo,correcto)
-        tmp.codigo_3d[-1]=text
-        if cmp == text :
             return None
-        return True
+        cd_3d:str = tmp.codigo_3d[-1]
+        spl = cd_3d.split("=")
+        if spl[0]==ultimo:
+            import re
+            es_sub=spl[0].find(ultimo)
+            es_llamado = spl[1].find(ultimo)
+            if es_sub!=-1 and es_llamado == -1:
+                last = correcto+"="+spl[1]
+
+                #print(spl[1]+'   '+ultimo+'   '+correcto+'    '+spl[0])
+                tmp.codigo_3d[-1]=last
+                return True
+        return None
 
     def terminar_codigo_3d(self):
         self.mi_tabla_de_retornos()

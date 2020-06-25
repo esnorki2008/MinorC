@@ -89,14 +89,38 @@ int main()
 '''
 
 cadena4 = '''
-struct punto {
-    int x,h;
-    int y;
-}
+
 int main()
 {
+    int a=0;
+    int b=0;
+    b = -b;
+    a=b;
+    b=a;
+    b=0+b;
+    b=b+0;
+    b=0-b;
+    b=b-0;
+    b=1*b;
+    b=b*1;
+    b=1/b;
+    b=b/1;
+    b=a+0;
+    b=0+a;
+    b=a-0;
+    b=0-a;
+    b=a*1;
+    b=1*a;
+    b=a/1;
+    b=1/a;
+    b=a*2;
+    b=2*a;
+    b=a*0;
+    b=0*a;
+    b=0/a;
     
-    printf("\\n");
+    
+    
 }
 '''
 rst=analizar_ascendente(cadena4)
@@ -104,13 +128,12 @@ tab = TablaDeSimbolos(None)
 if rst is None :
     print("Error")
 else:
-    print(rst.str_arbol());
-    #rst.ejecutar_3D(tab)
-    #tab.terminar_codigo_3d()
-        #from Contenido.Optimo import Optimo
-        #Optm = Optimo()
-    lst_sal=tab.codigo_3d
-        #lst_sal = Optm.quitar_etiquetas_sin_saltos(lst_sal)
+    #print(rst.str_arbol());
+    rst.ejecutar_3D(tab)
+    tab.terminar_codigo_3d()
+    from Contenido.Optimo import Optimo
+    Optm:Optimo = Optimo(tab.codigo_3d)
+    lst_sal = Optm.codigo_optimizado()
     tab.imprimir_codigo_3d(lst_sal)
 
 

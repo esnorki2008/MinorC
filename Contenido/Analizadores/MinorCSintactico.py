@@ -301,7 +301,7 @@ def p_instruccion_asignar_valor_struct(t):
 
 #====================Operaciones Con Variables Simples=========
 def p_instruccion_asignacion(t):
-    'instruccion : mdecla corchelle arre_str_val m_igual expresiones PUNTOCOMA '
+    'instruccion : mdecla corche arre_str_val m_igual expresiones PUNTOCOMA '
     global entrada
     tp = find_column(entrada, t.slice[6])
     if t[3] is None:
