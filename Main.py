@@ -90,14 +90,14 @@ int main()
 '''
 
 cadena4 = '''
-int suma(int n){
-    return n*n;
+struct punto {
+    int x,h;
+    int y;
 }
 int main()
 {   
-    if(1==1){
-        printf("hola");
-    }
+    struct punto hola;
+    hola.x=50;
 }
 '''
 rst=analizar_ascendente(cadena4)

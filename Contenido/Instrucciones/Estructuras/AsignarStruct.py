@@ -9,7 +9,10 @@ class AsignarStruct(Instruccion):
     corche = []
 
     def __init__(self, nombre, contenido, valor, asig, tp, corche=[]):
-        self.nombre = nombre[0]
+        if type(nombre)==str:
+            self.nombre = nombre
+        else:
+            self.nombre = nombre[0]
         self.contenido = contenido
         self.valor = valor
         self.tupla = tp
@@ -75,8 +78,7 @@ class AsignarStruct(Instruccion):
             elif self.tipo_asignacion == "|=":
                 Tabla.nuevo_codigo_3d(vari.contenido + " = " + vari.contenido + " | " + str(valor_exec.contenido) + ";")
             else:
-                rst = Tabla.reemplazar_ultimo_codigo_3d(valor_exec.temp_str(),
-                                                        vari.temp_str() + "[\"" + self.contenido + "\"]")
+                rst = Tabla.reemplazar_ultimo_codigo_3d(valor_exec.temp_str(),vari.temp_str() )
                 if rst is None:
                     mi_expresion = vari.contenido + " = " + valor_exec.temp_str() + ";"
                     Tabla.nuevo_codigo_3d(mi_expresion)
