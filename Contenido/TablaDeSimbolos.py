@@ -149,6 +149,12 @@ class TablaDeSimbolos:
             tmp = tmp.tabla_padre
         tmp.codigo_3d.append(nuevo)
 
+    def caso_continue(self):
+        tmp = self
+        while tmp.tabla_padre is not None:
+            tmp = tmp.tabla_padre
+        return tmp.codigo_3d.pop(-1)
+
     def reemplazar_ultimo_codigo_3d(self,ultimo,correcto):
         #return None
 

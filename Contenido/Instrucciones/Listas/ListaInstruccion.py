@@ -21,7 +21,11 @@ class ListaInstruccion(Instruccion):
 
     def ejecutar_3D(self, Tabla):
         for each in self.contenido:
-            each.ejecutar_3D(Tabla)
+            each.paso_continue = self.paso_continue
+            each.paso_break = self.paso_break
+            detener =each.ejecutar_3D(Tabla)
+            if detener =="stopu" or detener =="stopc":
+                return  detener
 
         # return self.contenido
 

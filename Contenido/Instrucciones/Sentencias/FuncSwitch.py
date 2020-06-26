@@ -25,15 +25,22 @@ class FuncSwitch(Instruccion):
         temp = self.param.ejecutar_3D(Tabla);
         mi_eti = "out"+str(id(self))
         defa = None
+
+
+
         for cada in self.cuerpo_switch:
+            cada.paso_continue = self.paso_continue
+            cada.paso_break = mi_eti
             if cada.param is not None:
                 novo = TablaDeSimbolos(Tabla)
                 cada.ejecutar_3D(novo,temp,mi_eti)
+
             else:
                 defa = cada
 
         novo = TablaDeSimbolos(Tabla)
-        defa.ejecutar_3D(novo, temp,mi_eti)
+        if defa is not None:
+            defa.ejecutar_3D(novo, temp,mi_eti)
         Tabla.nuevo_codigo_3d(mi_eti+":")
 
 

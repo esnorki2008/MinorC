@@ -6,6 +6,8 @@ class Instruccion(ABC):
     mi_tempo= None
     tipo = None
     nombre_padre = None
+    paso_break = None
+    paso_continue = None
     def n_t(self, tupla: ()):
         self.tupla = tupla
 
@@ -13,6 +15,8 @@ class Instruccion(ABC):
         self.mi_tempo=None
         self.tipo=None
         self.nombre_padre = None
+        self.paso_break = None
+        self.paso_continue = None
 
     @abstractmethod
     def str_arbol(self):

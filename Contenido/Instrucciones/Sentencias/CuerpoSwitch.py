@@ -27,12 +27,16 @@ class CuerpoSwitch(Instruccion):
             nombre_switch= "out"+str(id(self))
             condicional = "if (" + str(temp_padre.contenido) + " != "+ str(temp .contenido)+") goto " + nombre_switch + " ;"
             Tabla.nuevo_codigo_3d(condicional)
+            self.cuerpo_si.paso_continue = self.paso_continue
+            self.cuerpo_si.paso_break = self.paso_break
             self.cuerpo_si.ejecutar_3D(Tabla)
             condicional = "goto "+eti_padre+";"
             Tabla.nuevo_codigo_3d(condicional)
             condicional = nombre_switch+":"
             Tabla.nuevo_codigo_3d(condicional)
         else:
+            self.cuerpo_si.paso_continue = self.paso_continue
+            self.cuerpo_si.paso_break = self.paso_break
             self.cuerpo_si.ejecutar_3D(Tabla);
 
 

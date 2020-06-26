@@ -15,6 +15,8 @@ reserved = {
     'default':'DEFAULT',
     'case':'CASE',
     'for':'FOR',
+    'break':'BREAK',
+    'continue':'CONTINUE',
 
 }
 tokens = [
@@ -67,7 +69,11 @@ tokens = [
              'ANDIGUAL',
              'XORIGUAL',
              'ORIGUAL',
-             'PUNTO'
+             'PUNTO',
+             'CASTINT',
+             'CASTCHAR',
+             'CASTDOUBLE',
+             'CASTFLOAT',
 
 
          ] + list(reserved.values())
@@ -104,6 +110,13 @@ t_DIVIDIDO = r'/'
 t_PUNTOCOMA = r';'
 t_COMA = r','
 t_DOBLEPUNTO = r':'
+
+t_CASTINT = r'\(int\)'
+t_CASTCHAR = r'\(char\)'
+t_CASTDOUBLE = r'\(double\)'
+t_CASTFLOAT = r'\(castfloat\)'
+
+
 
 t_MOD = r'\%'
 t_NOT = r'\!'
@@ -155,9 +168,10 @@ def t_ENTERO(t):
 def t_CADENA(t):
     r'("|\')([^"\']*)("|\')'
     try:
-        cadena: str = t.value
-        t.value = cadena.replace("\"", "")
-        t.value = t.value.replace("\'", "")
+        pass
+        #cadena: str = t.value
+        #t.value = cadena.replace("\"", "")
+        #t.value = t.value.replace("\'", "")
     except ValueError:
         print("Error Cadena %d", t.value)
         t.value = ""

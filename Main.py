@@ -12,20 +12,21 @@ from Contenido.TablaDeSimbolos import TablaDeSimbolos
 
 
 cadena1 = '''
-        int main(){
-
-            int m=factorial(factorial(3));
-            printf(m);
-        }
+        
 
         int factorial(int n) {
             if (n>=1)
         return n*factorial(n-1);
             else
         return 1;
+        }        
+        int main(){
 
 
-}
+            #int m=factorial(factorial(3));
+            int m=factorial(3);
+            printf(m);
+        }
 
 '''
 
@@ -89,38 +90,14 @@ int main()
 '''
 
 cadena4 = '''
-
+int suma(int n){
+    return n*n;
+}
 int main()
-{
-    int a=0;
-    int b=0;
-    b = -b;
-    a=b;
-    b=a;
-    b=0+b;
-    b=b+0;
-    b=0-b;
-    b=b-0;
-    b=1*b;
-    b=b*1;
-    b=1/b;
-    b=b/1;
-    b=a+0;
-    b=0+a;
-    b=a-0;
-    b=0-a;
-    b=a*1;
-    b=1*a;
-    b=a/1;
-    b=1/a;
-    b=a*2;
-    b=2*a;
-    b=a*0;
-    b=0*a;
-    b=0/a;
-    
-    
-    
+{   
+    if(1==1){
+        printf("hola");
+    }
 }
 '''
 rst=analizar_ascendente(cadena4)

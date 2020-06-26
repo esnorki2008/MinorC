@@ -34,6 +34,10 @@ class FuncWhile(Instruccion):
 
         condicional="if ("+valor_exec.temp_str()+" != 1) goto out"+nombre_ciclo+" ;"
         novo.nuevo_codigo_3d(condicional)
+
+        self.cuerpo.paso_continue = nombre_ciclo
+        self.cuerpo.paso_break = "out" + nombre_ciclo
+
         self.cuerpo.ejecutar_3D(novo)
         novo.nuevo_codigo_3d("goto " +nombre_ciclo +";")
         novo.nuevo_codigo_3d("out"+nombre_ciclo+":")

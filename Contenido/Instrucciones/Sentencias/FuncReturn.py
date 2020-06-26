@@ -34,3 +34,4 @@ class FuncReturn(Instruccion):
 
         Tabla.nuevo_codigo_3d("goto retornos;")
 
+        return "stopu"

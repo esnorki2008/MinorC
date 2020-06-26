@@ -24,13 +24,19 @@ from Contenido.Instrucciones.Sentencias.Variaciones import Variaciones
 
 from Contenido.Instrucciones.FuncionesPropias.FuncPrintF import FuncPrintF
 from Contenido.Instrucciones.FuncionesPropias.FuncScanf import FuncScanF
+from Contenido.Instrucciones.FuncionesPropias.FuncBreak import FuncBreak
+from Contenido.Instrucciones.FuncionesPropias.FuncContinue import FuncContinue
+from Contenido.Instrucciones.FuncionesPropias.Cast import Cast
+from Contenido.Instrucciones.FuncionesPropias.Ternario import Ternario
 
 from Contenido.Instrucciones.Estructuras.ContenidoStruct import ContenidoStruct
 from Contenido.Instrucciones.Estructuras.DefinirStruct import DefinirStruct
 from Contenido.Instrucciones.Estructuras.DeclaracionStruct import DeclaracionStruct
 from Contenido.Instrucciones.Estructuras.AsignarStruct import AsignarStruct
 from Contenido.Instrucciones.Estructuras.ValorStruct import ValorStruct
+
 precedence = (
+    ('right', 'INTERROGACION', 'DOBLEPUNTO'),
     ('left', 'OR'),
     ('left', 'AND'),
     ('left', 'ORB'),
@@ -41,7 +47,7 @@ precedence = (
     ('left', 'SHIFTI', 'SHIFTD'),
     ('left', 'MAS', 'MENOS'),
     ('left', 'POR', 'DIVIDIDO', 'MOD'),
-    ('right', 'UMENOS', 'UMAS', 'NOT', 'NOTB','UAND','MASDOBLE','MENOSDOBLE'),
+    ('right', 'UMENOS', 'UMAS', 'NOT', 'NOTB','UAND','MASDOBLE','MENOSDOBLE','CASTINT','CASTDOUBLE','CASTFLOAT','CASTCHAR'),
 )
 
 
@@ -132,12 +138,23 @@ def p_instruccion_abierta_inst(t):
 def p_instruccion_llamado_metodos(t):
     'instruccion : instruccion_llamar_metodo'
     t[0]=t[1]
+#===============================Instrucciones Internas========
+def p_interna_break(t):
+    'instruccion_llamar_metodo : BREAK  PUNTOCOMA'
+    tp = find_column(entrada, t.slice[1])
+    t[0]=FuncBreak(tp)
 
+def p_interna_continue(t):
+    'instruccion_llamar_metodo : CONTINUE  PUNTOCOMA'
+    tp = find_column(entrada, t.slice[1])
+    t[0]=FuncContinue(tp)
 #================================Llamado De Metodos===========
 def p_llamar_retorno_metodo(t):
     'instruccion_llamar_metodo : RETURN expresiones PUNTOCOMA'
     tp = find_column(entrada, t.slice[1])
     t[0]=FuncReturn(t[2],tp)
+
+
 
 def p_llamar_funcion_generica(t):
     'instruccion_llamar_metodo : IDENTIFICADOR PARA listado_parametros PARC PUNTOCOMA'
@@ -221,6 +238,8 @@ def p_instruccion_abierta_definicion_if_else(t):
     tp = find_column(entrada, t.slice[1])
     t[0] = FuncIf(t[3], t[5], t[7], tp)
 
+
+
 def p_instruccion_abierta_definicion_switch(t):
     '''instruccion_abierta :  SWITCH PARA expresiones PARC LLAA switch_corpo LLAC'''
     global entrada
@@ -259,7 +278,7 @@ def p_tipo(t):
     elif t[1]=="double":
         t[0]=1
     elif t[1]=="float":
-        t[0]=2
+        t[0]=1
     else:
         t[0]=t[2]
 
@@ -401,6 +420,11 @@ def p_expresiones_binarias(t):
     tp = find_column(entrada, t.slice[2])
     t[0] = NodoBinario(t[1], t[2], t[3], tp)
 
+def p_valor_ternario(t):
+    'expresiones : expresiones INTERROGACION expresiones DOBLEPUNTO expresiones'
+    global entrada
+    tp = find_column(entrada, t.slice[2])
+    t[0] = Ternario(t[1],t[3],t[5],tp)
 
 def p_expresiones_unarias(t):
     '''expresiones : MENOS expresiones %prec UMENOS
@@ -491,6 +515,32 @@ def p_valor_variable_arreglo_struct(t):
     global entrada
     tp = find_column(entrada, t.slice[1])
     t[0] = ValorStruct(t[1],t[4], tp,t[2])
+
+
+
+def p_valor_cast_int(t):
+    'valor : CASTINT expresiones'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = Cast(t[1],t[2],tp)
+
+def p_valor_cast_char(t):
+    'valor : CASTCHAR expresiones'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = Cast(t[1], t[2], tp)
+
+def p_valor_cast_Float(t):
+    'valor : CASTFLOAT expresiones'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = Cast(t[1], t[2], tp)
+
+def p_valor_cast_double(t):
+    'valor : CASTDOUBLE expresiones'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = Cast(t[1], t[2], tp)
 
 def p_valor_scanf(t):
     'valor : SCANF PARA PARC'

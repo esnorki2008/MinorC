@@ -26,6 +26,10 @@ class FuncDoWhile(Instruccion):
         nombre_ciclo="label"+str(id(self))
         novo.nuevo_codigo_3d(nombre_ciclo+":")
         valor_exec = self.param.mi_tempo
+
+        self.cuerpo.paso_continue = nombre_ciclo
+        self.cuerpo.paso_break = "out" + nombre_ciclo
+
         self.cuerpo.ejecutar_3D(novo)
         if valor_exec is None:
             valor_exec = self.param.ejecutar_3D(novo)
