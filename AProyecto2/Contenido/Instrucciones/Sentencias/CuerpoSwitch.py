@@ -14,7 +14,8 @@ class CuerpoSwitch(Instruccion):
         concatenar = ""
         expand = "CASE"
         concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
-        concatenar += self.param.str_arbol()
+        if self.param is not None:    
+            concatenar += self.param.str_arbol()
         concatenar += str(id(self)) + " -> " + str(id(self.param)) + "\n"
         concatenar += self.cuerpo_si.str_arbol()
         concatenar += str(id(self)) + " -> " + str(id(self.cuerpo_si)) + "\n"

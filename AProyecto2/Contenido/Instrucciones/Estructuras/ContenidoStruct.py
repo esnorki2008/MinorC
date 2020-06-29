@@ -4,11 +4,12 @@ from AProyecto2.Contenido.TablaDeSimbolos import TablaDeSimbolos
 class ContenidoStruct(Instruccion):
     tipo = None
     lst_nombres = None
-
-    def __init__(self, tipo, lst_nombres,tupla):
+    corche = None
+    def __init__(self, tipo, lst_nombres,tupla,corche=None):
         self.tipo= tipo
         self.lst_nombres = lst_nombres
         self.tupla = tupla
+        self.corche = corche
 
     def str_arbol(self):
         concatenar = ""
@@ -32,6 +33,8 @@ class ContenidoStruct(Instruccion):
     def struct_busqueda_atributo_tipo(self,tabla,atributo):
         for cada in self.lst_nombres:
             if cada == atributo:
+                if self.corche is not None:
+                    return self.tipo + 3
                 return self.tipo
 
     def ejecutar_3D(self, Tabla):
@@ -40,6 +43,6 @@ class ContenidoStruct(Instruccion):
     def val_defecto(self,tipo):
         if tipo == 0: return "0"
         elif tipo == 1: return "0.0"
-        elif tipo == 2:return " "
+        elif tipo == 2:return "'0'"
 
 

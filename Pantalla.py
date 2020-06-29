@@ -152,6 +152,57 @@ class Ui_MainWindow(object):
         self.lbl_reporte_errores.setObjectName("lbl_reporte_errores")
         self.verticalLayout_6.addWidget(self.lbl_reporte_errores)
         #=======================================TAB DE TABLA DE SIMBOLO======================
+        self.tab_minor_reporte_tabla = QtWidgets.QWidget()
+        self.tab_minor_reporte_tabla.setObjectName("tab_minor_reporte_tabla")
+        self.tabWidget_reportes_minor_c.addTab(self.tab_minor_reporte_tabla, "Reporte Tabla De Simbolos")
+
+        self.frame_reporte_tabla =QtWidgets.QScrollArea(self.tab_minor_reporte_tabla)
+        self.frame_reporte_tabla.setGeometry(QtCore.QRect(5, 30, 870, 330))
+        self.frame_reporte_tabla.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.frame_reporte_tabla.setWidgetResizable(True)
+        self.frame_reporte_tabla.setObjectName("frame_reporte_tabla")
+
+        self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 868, 329))
+        self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
+        self.frame_reporte_tabla.setWidget(self.scrollAreaWidgetContents_7)
+
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_7)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        
+        self.lbl_reporte_tabla = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.lbl_reporte_tabla.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.lbl_reporte_tabla.setFrameShape(QtWidgets.QFrame.Panel)
+        self.lbl_reporte_tabla.setText("")
+        self.lbl_reporte_tabla.setScaledContents(False)
+        self.lbl_reporte_tabla.setObjectName("lbl_reporte_tabla")
+        self.verticalLayout_7.addWidget(self.lbl_reporte_tabla)
+        #============================================Reporte Optimizacion==================
+        self.tab_minor_reporte_optimizacion = QtWidgets.QWidget()
+        self.tab_minor_reporte_optimizacion.setObjectName("tab_minor_reporte_optimizacion")
+        self.tabWidget_reportes_minor_c.addTab(self.tab_minor_reporte_optimizacion, "Reporte De Optimizacion")
+
+        self.frame_reporte_optimizacion =QtWidgets.QScrollArea(self.tab_minor_reporte_optimizacion)
+        self.frame_reporte_optimizacion.setGeometry(QtCore.QRect(5, 30, 870, 330))
+        self.frame_reporte_optimizacion.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.frame_reporte_optimizacion.setWidgetResizable(True)
+        self.frame_reporte_optimizacion.setObjectName("frame_reporte_optimizacion")
+
+        self.scrollAreaWidgetContents_8 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 868, 329))
+        self.scrollAreaWidgetContents_8.setObjectName("scrollAreaWidgetContents_8")
+        self.frame_reporte_optimizacion.setWidget(self.scrollAreaWidgetContents_8)
+
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_8)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        
+        self.lbl_reporte_optimizacion = QtWidgets.QLabel(self.scrollAreaWidgetContents_8)
+        self.lbl_reporte_optimizacion.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.lbl_reporte_optimizacion.setFrameShape(QtWidgets.QFrame.Panel)
+        self.lbl_reporte_optimizacion.setText("")
+        self.lbl_reporte_optimizacion.setScaledContents(False)
+        self.lbl_reporte_optimizacion.setObjectName("lbl_reporte_tabla")
+        self.verticalLayout_8.addWidget(self.lbl_reporte_optimizacion)
         #============================================FIN DE TAB
         self.frameCodigo = QtWidgets.QFrame(self.tab_augus_optimo)
         self.frameCodigo.setGeometry(QtCore.QRect(0, 30, 430, 350))
@@ -374,6 +425,10 @@ class Ui_MainWindow(object):
         self.lbl_graphviz.resize(qp.size())
         self.lbl_graphviz.setPixmap(qp)
 
+    def reportes_tabla_de_simbolos(self):
+        entrada=self.mi_proyecto2.reporte_tabla_variables()
+        self.lbl_reporte_tabla.setText(entrada)
+
     def reportes_minor_c_gramatical(self):
         entrada=self.mi_proyecto2.reporte_gramatical()
         self.lbl_reporte_gramatical.setText(entrada)
@@ -382,14 +437,23 @@ class Ui_MainWindow(object):
         entrada=self.mi_proyecto2.reporte_errores()
         self.lbl_reporte_errores.setText(entrada)
 
+    def limpiar_reportes_minor_c(self):
+        self.lbl_reporte_errores.clear()
+        self.lbl_reporte_gramatical.clear()
+        self.lbl_reporte_tabla.clear()
+        self.lbl_graphviz.clear()
+
     def ejecutar_minor(self):
         entrada=self.editor_minor.text()
         self.editor.setText(self.mi_proyecto2.analizar_minor_c_optimizar_3D(entrada))
         self.editor_normal.setText(self.mi_proyecto2.analizar_minor_c(entrada))
         
-        self.reportes_minor_c_gramatical()
+        self.limpiar_reportes_minor_c()
+
+        #self.reportes_minor_c_gramatical()
         self.reportes_minor_c_errores()
-        self.reportes_minor_c_graphviz()
+        #self.reportes_minor_c_graphviz()
+        #self.reportes_tabla_de_simbolos()
 
         self.ascendente()
         
@@ -401,6 +465,7 @@ class Ui_MainWindow(object):
         self.editor_normal.setText(self.mi_proyecto2.analizar_minor_c(entrada))
         self.debugger()
 
+        
     def clean(self):
         self.ruta_archivo = None
         self.editor.setText("")

@@ -13,6 +13,7 @@ class Hoja(Instruccion):
 
     def str_arbol(self):
         concatenar = ""
-        expand = "HOJA   "+str(self.contenido.contenido)
+        str_bueno = str(self.contenido.contenido)
+        expand = "HOJA   "+str(str_bueno.replace("\"","").replace("\'",""))
         concatenar += str(id(self)) + "[shape=rect,sides=4,skew=.4,label=\"" + expand + "\"]\n"
         return concatenar

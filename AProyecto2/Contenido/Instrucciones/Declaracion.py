@@ -46,11 +46,23 @@ class Declaracion(Instruccion):
         self.ejecutar_arreglo_con_valor(Tabla,temp)
 
     def ejecutar_arreglo_con_valor(self,Tabla,tempo):
+        if self.arr_val is None:
+            return
         conta=0;
         for cor in self.arr_val:
-            tem_exec=cor.ejecutar_3D(Tabla);
-            expresion=tempo.contenido+"["+str(conta)+"] = "+str(tem_exec.contenido)+";"
-            Tabla.nuevo_codigo_3d(expresion)
+            if type(cor) != list:
+                tem_exec=cor.ejecutar_3D(Tabla);
+                expresion=tempo.contenido+"["+str(conta)+"] = "+str(tem_exec.contenido)+";"
+                Tabla.nuevo_codigo_3d(expresion)
+                
+            else:
+                conta_sub=0;
+                for sub_item in cor:
+                    tem_exec=sub_item.ejecutar_3D(Tabla);
+                    expresion=tempo.contenido+"["+str(conta)+"]"+"["+str(conta_sub)+"]"+" = "+str(tem_exec.contenido)+";"
+                    Tabla.nuevo_codigo_3d(expresion)
+                    conta_sub=conta_sub+1
+
             conta=conta+1
 
     def ejecutar_3D(self, Tabla ):
@@ -83,7 +95,7 @@ class Declaracion(Instruccion):
             if rst is None:
                 Tabla.nuevo_codigo_3d(mi_expresion)
             #Tabla.nuevo_codigo_3d(mi_expresion)
-            Tabla.nuevo_temporal(cada, temp)
+            Tabla.nuevo_temporal(cada, temp , self.tupla)
 
         # return self.contenido
 

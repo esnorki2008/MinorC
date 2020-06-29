@@ -40,10 +40,13 @@ class Asignacion(Instruccion):
                 if k_tipo == 3 or k_tipo == 4 or k_tipo == 5:
                     k_tipo = k_tipo - 3;
 
-                if k_tipo != valor_exec.tipo:
-                    desc = "Asignacion a una variable de tipo: " + self.tipo_a_str(
-                        vari.tipo) + " un valor de tipo: " + self.tipo_a_str(valor_exec.tipo)
-                    Tabla.nuevo_error("Eror De Tipos", desc, 0, self.tupla)
+                if k_tipo != valor_exec.tipo :
+                    #if vari.tipo ==1 and valor_exec.tipo==0:
+                    #    pass
+                    #else:
+                        desc = "Asignacion a una variable de tipo: " + self.tipo_a_str(
+                            vari.tipo) + " un valor de tipo: " + self.tipo_a_str(valor_exec.tipo)
+                        Tabla.nuevo_error("Eror De Tipos", desc, 0, self.tupla)
 
                 aux = vari.contenido
 

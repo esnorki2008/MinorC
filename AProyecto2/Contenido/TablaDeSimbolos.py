@@ -24,7 +24,9 @@ class TablaDeSimbolos:
     return_address = 0
     contador_retornos=0
     dict_etiquetas = {}
+    lst_historial_variables = []
     def __init__(self, tabla_padre):
+        self.lst_historial_variables = []
         self.contador_retornos = 0
         self.parametros = 0
         self.codigo_3d=[]
@@ -42,14 +44,15 @@ class TablaDeSimbolos:
     def nuevo_struct(self,llave,struct):
         self.dic_struct[llave] = struct
 
-    def declarar_struct_busqueda(self,nombre,tempo_var,tupla):
+    def declarar_struct_busqueda(self,nombre,tempo_var,tupla,corche):
         temp = self
         while temp.tabla_padre is not None:
             temp = temp.tabla_padre
 
         for cada in temp.dic_struct.items():
             if cada[0]==nombre:
-                cada[1].colocar_inicializacion(temp,tempo_var)
+                if corche is None:
+                    cada[1].colocar_inicializacion(temp,tempo_var)
                 return
 
         self.nuevo_error("struct '"+nombre+ "' no definido", "se intento usar un struct no definido", 0, tupla)
@@ -160,7 +163,7 @@ class TablaDeSimbolos:
         return tmp.codigo_3d.pop(-1)
 
     def reemplazar_ultimo_codigo_3d(self,ultimo,correcto):
-        #return None
+        
 
         tmp = self
         while tmp.tabla_padre is not None:
@@ -170,7 +173,7 @@ class TablaDeSimbolos:
             print("ERROR REEMPLAZANDO")
             return None
         cd_3d:str = tmp.codigo_3d[-1]
-        spl = cd_3d.split("=")
+        spl = cd_3d.split("=",1)
         if spl[0]==ultimo:
             import re
             es_sub=spl[0].find(ultimo)
@@ -205,7 +208,15 @@ class TablaDeSimbolos:
         if veri is not None:
             self.nuevo_error("Redefinicion De Variables","Se intendo definir de nuevo la variable : "+str(llave),0,tupla)
         else:
+            self.historial_variables(llave,valor,tupla)
             self.dic_temporales[llave] = valor
+
+    
+    def historial_variables(self,llave,temporal,tupla):
+        temp =self
+        while(temp.tabla_padre is not None):
+            temp = temp.tabla_padre
+        temp.lst_historial_variables.append((llave,temporal.tipo,temporal.contenido,tupla[0],tupla[1]))
 
     def nueva_etiqueta(self,etiqueta,tupla =(0,0)):
         veri = self.dict_etiquetas.get(etiqueta, None)

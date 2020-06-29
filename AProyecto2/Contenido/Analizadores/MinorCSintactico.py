@@ -91,7 +91,7 @@ def p_declaracion_var_glonal(t):
     min_lst_repga.append((repg_inst, repga_sema))
 #===================================Structs================
 def p_declaracion_struct_a(t):
-    'metodos : STRUCT IDENTIFICADOR LLAA muhco_decla_struct LLAC'
+    'metodos : STRUCT IDENTIFICADOR LLAA muhco_decla_struct LLAC PUNTOCOMA'
     tp = find_column(entrada, t.slice[1])
     t[0] = DefinirStruct(t[2], t[4], tp)
 
@@ -122,9 +122,9 @@ def p_instruccion_declaracion_struct_epsilon(t):
     min_lst_repga.append((repg_inst, repga_sema))
 
 def p_instruccion_declaracion_struct_puntual(t):
-    'decla_struct : tipo mdecla  PUNTOCOMA'
-    tp = find_column(entrada, t.slice[3])
-    t[0]=ContenidoStruct(t[1],t[2],tp)
+    'decla_struct : tipo mdecla  corche PUNTOCOMA'
+    tp = find_column(entrada, t.slice[4])
+    t[0]=ContenidoStruct(t[1],t[2],tp,t[3])
 
     global min_lst_repga
     repg_inst = 'decla_struct : tipo mdecla  PUNTOCOMA'
@@ -294,7 +294,7 @@ def p_llamar_funcion_generica(t):
     t[0] = LlamarFuncMetodo(t[1],t[3],tp)'''
     min_lst_repga.append((repg_inst, repga_sema))
 
-def p_llamar_scanf(t):
+def p_llamar_printf_algo(t):
     'instruccion_llamar_metodo : PRINTF PARA listado_parametros PARC PUNTOCOMA'
     tp = find_column(entrada, t.slice[1])
     t[0] = FuncPrintF(t[3],tp)
@@ -669,6 +669,19 @@ def p_val_arreglo_posible_valor_epsilon(t):
     'pob_val : '
     t[0] = None
 
+def p_val_arreglo_posible_valor_dos_dimensiones(t):
+    'pob_val : IGUAL LLAA val_two LLAC'
+    t[0]=t[3]
+
+def p_val_arreglo_posible_valor_dos_dimensiones_recursivo(t):
+    'val_two :  val_two COMA LLAA val_arri LLAC '
+    t[0]=t[1]
+    t[0].append(t[4])
+
+def p_val_arreglo_posible_valor_dos_dimensiones_epsi(t):
+    'val_two :  LLAA val_arri LLAC '
+    t[0]=[t[2]]
+
 def p_val_arreglo_mucho(t):
     'val_arri : val_arri COMA expresiones'
     t[0]=t[1]
@@ -1035,9 +1048,9 @@ def analizar_ascendente(input: str,lst_reporte_gramatical :[],lerror):
     global list_er
     list_er=lerror.lst_errores
     #print(str(id(list_er))+"---")
-    lexer = lex.lex()
     global entrada,min_lst_repga
     entrada = input
+    lexer = lex.lex()
     parsito = yacc.yacc()
     min_lst_repga=lst_reporte_gramatical
     return parsito.parse(input)

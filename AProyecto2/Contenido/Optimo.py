@@ -3,6 +3,7 @@ import re
 
 class Optimo:
     lst = []
+    lst_reglas_usadas = []
     #REGLAS SIN USAR
     #2
     #3
@@ -14,6 +15,7 @@ class Optimo:
     def __init__(self, lst):
         self.lst = lst
         self.mirilla_regla_m()
+        
     def mirilla_regla_m(self):
         contador = 0
         novo_lista = []
