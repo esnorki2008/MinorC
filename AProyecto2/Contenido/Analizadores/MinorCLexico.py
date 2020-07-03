@@ -18,7 +18,8 @@ reserved = {
     'break': 'BREAK',
     'continue': 'CONTINUE',
     'goto': 'GOTO',
-    'void': 'VOID'
+    'void': 'VOID',
+    'sizeof': 'SIZEOF'
 
 }
 tokens = [

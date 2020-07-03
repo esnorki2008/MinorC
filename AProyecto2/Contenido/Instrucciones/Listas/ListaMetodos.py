@@ -19,6 +19,13 @@ class ListaMetodos(Instruccion):
     def agregar(self,item):
         self.contenido.append(item)
 
+    def reporte_metodos(self,lst):
+        from AProyecto2.Contenido.Instrucciones.Sentencias.FuncMetodo import FuncMetodo
+        for each in self.contenido:
+            if isinstance(each,FuncMetodo):
+                conti=(each.nombre,each.tupla[0],each.tupla[1])
+                lst.append(conti)
+
     def ejecutar_3D(self,Tabla):
         if len(self.contenido ) == 0:
             return

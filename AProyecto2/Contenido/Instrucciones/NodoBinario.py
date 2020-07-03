@@ -73,6 +73,8 @@ class NodoBinario(Instruccion):
             return 0
 
     def tipo_menos_por_div_mod(self,izquierda,derecha,op,tabla):
+        
+
         if izquierda.tipo == 0:
             if derecha.tipo == 0:
                 return 0

@@ -11,7 +11,7 @@ class Goto(Instruccion):
 
 
     def ejecutar_3D(self, Tabla:TablaDeSimbolos):
-        if Tabla.buscar_etiqueta(self.nombre,self.tupla) is not  None:
+        #if Tabla.buscar_etiqueta(self.nombre,self.tupla) is not  None:
             Tabla.nuevo_codigo_3d("goto ETI"+str(self.nombre)+";")
 
     def str_arbol(self):

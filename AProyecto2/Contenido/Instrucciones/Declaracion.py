@@ -80,7 +80,7 @@ class Declaracion(Instruccion):
 
             self.valor.pop_retorno(Tabla,valor_exec.contenido)
 
-        if self.tipo != valor_exec.tipo:
+        if self.tipo != valor_exec.tipo and (self.union(self.tipo,valor_exec.tipo)==False):
             desc="Asignacion a una variable de tipo: "+self.tipo_a_str(self.tipo)+" un valor de tipo: "+self.tipo_a_str(valor_exec.tipo)
             Tabla.nuevo_error("Eror De Tipos",desc,0,self.tupla)
 
@@ -99,4 +99,21 @@ class Declaracion(Instruccion):
 
         # return self.contenido
 
+
+    def union(self,tipo1,tipo2):
+        if tipo1 == 0:
+            if tipo2==0:
+                return True
+            elif tipo2==1:
+                return True
+            else:
+                return False
+        elif tipo1==1:
+            if tipo2==0:
+                return True
+            elif tipo2==1:
+                return True
+            else:
+                return False
+        return False
 

@@ -46,13 +46,59 @@ class Proyecto2:
     lst_errores = []
     lst_historial_variables = []
     raiz_arbol = None
+    lst_reglas_usadas = []
+    lst_metodos_declarados = []
     def __init__(self):
         self.lst_repo_grama = []
         self.reporte_gramatical_contenido=""
         self.lst_errores=[]
         self.taba = None
         self.lst_historial_variables = []
+        self.lst_reglas_usadas = []
+        self.lst_metodos_declarados = []
 
+    def reporte_metodos_declarados(self):
+        from AProyecto2.Contenido.TablaDeSimbolos import Error
+        concaten="<table border='1' cellborder='1' color='blacks' cellspacing='0'>"
+        concaten += "<tr> \n <td>Nombre Metodo</td> \n <td>Columna</td> \n"
+        concaten +=" <td>Fila</td></tr>"
+        conta = 1
+        for cada in self.lst_metodos_declarados:
+            erri:Error = cada
+        
+           
+            concaten +="<tr>\n"
+            concaten +="<td>"+str(cada[0])+"</td>\n"
+            concaten +="<td>"+str(cada[1])+"</td>\n"
+            concaten +="<td>"+str(cada[2])+"</td>\n"
+            concaten +="</tr>\n"
+
+            conta = conta +1
+        concaten+="</table> "#\n >]; \n}"
+        self.lst_metodos_declarados = []
+        return concaten
+
+    def reporte_reglas_utilizadas(self):
+        from AProyecto2.Contenido.TablaDeSimbolos import Error
+        concaten="<table border='1' cellborder='1' color='blacks' cellspacing='0'>"
+        concaten += "<tr> \n <td>Numero De Regla</td> \n <td>Linea</td> \n"
+        concaten +=" <td>Contenido Linea</td></tr>"
+        conta = 1
+        for cada in self.lst_reglas_usadas:
+            erri:Error = cada
+        
+           
+            concaten +="<tr>\n"
+            concaten +="<td>"+str(cada[0])+"</td>\n"
+            concaten +="<td>"+str(cada[1])+"</td>\n"
+            concaten +="<td>"+str(cada[2])+"</td>\n"
+            concaten +="</tr>\n"
+
+            conta = conta +1
+        concaten+="</table> "#\n >]; \n}"
+        self.lst_reglas_usadas = []
+        return concaten
+    
     def reporte_tabla_variables(self):
         from AProyecto2.Contenido.TablaDeSimbolos import Error
         concaten="<table border='1' cellborder='1' color='blacks' cellspacing='0'>"
@@ -148,6 +194,10 @@ class Proyecto2:
         else:
             
             self.raiz_arbol = rst
+            from AProyecto2.Contenido.Instrucciones.Listas.ListaMetodos import ListaMetodos
+            self.lst_metodos_declarados = []
+            if isinstance(rst,ListaMetodos):
+                rst.reporte_metodos(self.lst_metodos_declarados)
             #print(rst.str_arbol());
             rst.ejecutar_3D(tab)
             self.lst_historial_variables = tab.lst_historial_variables
@@ -155,8 +205,10 @@ class Proyecto2:
             tab.terminar_codigo_3d()
             self.lst_errores = tab.lst_errores
             from AProyecto2.Contenido.Optimo import Optimo
-            Optm:Optimo = Optimo(tab.codigo_3d)
+            Optm:Optimo = Optimo(tab.codigo_3d,self.lst_reglas_usadas)
             lst_sal = Optm.codigo_optimizado()
+
+            #print("NORMAL")
             #tab.imprimir_temporales()
             return tab.string_codigo_3d(lst_sal)
 
@@ -172,6 +224,10 @@ class Proyecto2:
         else:
             
             self.raiz_arbol = rst
+            from AProyecto2.Contenido.Instrucciones.Listas.ListaMetodos import ListaMetodos
+            self.lst_metodos_declarados = []
+            if isinstance(rst,ListaMetodos):
+                rst.reporte_metodos(self.lst_metodos_declarados)
             #print(rst.str_arbol());
             rst.ejecutar_3D(tab)
             self.lst_historial_variables = tab.lst_historial_variables
