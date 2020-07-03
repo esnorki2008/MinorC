@@ -24,6 +24,7 @@ from AProyecto2.Contenido.Instrucciones.Sentencias.Variaciones import Variacione
 
 from AProyecto2.Contenido.Instrucciones.FuncionesPropias.FuncPrintF import FuncPrintF
 from AProyecto2.Contenido.Instrucciones.FuncionesPropias.FuncScanf import FuncScanF
+from AProyecto2.Contenido.Instrucciones.FuncionesPropias.FuncSizeof import FuncSizeof
 from AProyecto2.Contenido.Instrucciones.FuncionesPropias.FuncBreak import FuncBreak
 from AProyecto2.Contenido.Instrucciones.FuncionesPropias.FuncContinue import FuncContinue
 from AProyecto2.Contenido.Instrucciones.FuncionesPropias.Cast import Cast
@@ -998,6 +999,29 @@ def p_valor_cast_double(t):
     repga_sema = '''t[0] = Cast(t[1], t[2], tp)'''
     min_lst_repga.append((repg_inst, repga_sema))
 
+def p_valor_fuseizeof_expre(t):
+    'valor : SIZEOF PARA expresiones PARC'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = FuncSizeof(t[3],tp)
+
+    global min_lst_repga
+    repg_inst = 'valor : SCANF PARA exepresiones PARC'
+    repga_sema = '''t[0] = FuncSizeOf(tp)'''
+    min_lst_repga.append((repg_inst, repga_sema))
+
+def p_valor_fusizeof_tipo(t):
+    'valor : SIZEOF PARA tipo PARC'
+    global entrada
+    tp = find_column(entrada, t.slice[1])
+    t[0] = FuncSizeof(None,tp,t[3])
+
+    global min_lst_repga
+    repg_inst = 'valor : SCANF PARA exepresiones PARC'
+    repga_sema = '''t[0] = FuncSizeOf(tp)'''
+    min_lst_repga.append((repg_inst, repga_sema))
+
+
 def p_valor_scanf(t):
     'valor : SCANF PARA PARC'
     global entrada
@@ -1008,7 +1032,6 @@ def p_valor_scanf(t):
     repg_inst = 'valor : SCANF PARA PARC'
     repga_sema = '''t[0] = FuncScanF(tp)'''
     min_lst_repga.append((repg_inst, repga_sema))
-
 
 def p_valor_funcion_llamado(t):
     'valor : IDENTIFICADOR PARA listado_parametros PARC'
