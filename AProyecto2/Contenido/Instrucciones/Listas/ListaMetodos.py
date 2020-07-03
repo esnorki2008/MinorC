@@ -65,7 +65,7 @@ class ListaMetodos(Instruccion):
         main.ejecutar_3D(Tabla)
 
         for each in self.contenido:
-            if each.nombre != "main" and not isinstance(each,ListaInstruccion):
+            if  not isinstance(each,ListaInstruccion) and each.nombre != "main":
                 each.ejecutar_3D(Tabla)
 
         #return self.contenido

@@ -62,6 +62,8 @@ def p_inicio(t):
     repg_inst='inicio : lista_metodo'
     repga_sema="t[0]=t[1]"
     min_lst_repga.append((repg_inst,repga_sema))
+
+    
 def p_metodos_lista(t):
     'lista_metodos : lista_metodos metodos'
     t[0]=t[1]

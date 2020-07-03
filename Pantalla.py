@@ -346,6 +346,10 @@ class Ui_MainWindow(object):
         self.actionEjecutar_minor.setObjectName("actionEjecutar_minor")
         self.actionEjecutar_minor_debug = QtWidgets.QAction(MainWindow)
         self.actionEjecutar_minor_debug.setObjectName("actionEjecutar_minor_debug")
+        self.actionEjecutar_minor_normal = QtWidgets.QAction(MainWindow)
+        self.actionEjecutar_minor_normal.setObjectName("actionEjecutar_minor_normal")
+        self.actionEjecutar_minor_debug_normal = QtWidgets.QAction(MainWindow)
+        self.actionEjecutar_minor_debug_normal.setObjectName("actionEjecutar_minor_debug_normal")
         self.actionEjecutar_Ascendente = QtWidgets.QAction(MainWindow)
         self.actionEjecutar_Ascendente.setObjectName("actionEjecutar_Ascendente")
         self.actionEjecutar_Paso_a_Paso_Ascendente = QtWidgets.QAction(MainWindow)
@@ -358,6 +362,20 @@ class Ui_MainWindow(object):
         self.actionAST.setObjectName("actionAST")
         self.actionGramatical = QtWidgets.QAction(MainWindow)
         self.actionGramatical.setObjectName("actionGramatical")
+
+        self.actionreportes_minor_c_gramatical = QtWidgets.QAction(MainWindow)
+        self.actionreportes_minor_c_gramatical.setObjectName("reportes_minor_c_gramatical")
+        self.actionreportes_minor_c_reglas_usadas = QtWidgets.QAction(MainWindow)
+        self.actionreportes_minor_c_reglas_usadas.setObjectName("reportes_minor_c_reglas_usadas")
+        self.actionreportes_minor_c_errores = QtWidgets.QAction(MainWindow)
+        self.actionreportes_minor_c_errores.setObjectName("reportes_minor_c_errores")
+        self.actionreportes_minor_c_graphviz = QtWidgets.QAction(MainWindow)
+        self.actionreportes_minor_c_graphviz.setObjectName("reportes_minor_c_graphviz")
+        self.actionreportes_tabla_de_simbolos = QtWidgets.QAction(MainWindow)
+        self.actionreportes_tabla_de_simbolos.setObjectName("reportes_tabla_de_simbolos")
+        self.actionreportes_minor_c_reporte_metodos = QtWidgets.QAction(MainWindow)
+        self.actionreportes_minor_c_reporte_metodos.setObjectName("reportes_minor_c_reporte_metodos")
+        
 
         self.actionAyuda = QtWidgets.QAction(MainWindow)
         self.actionAyuda.setObjectName("actionAyuda")
@@ -375,10 +393,23 @@ class Ui_MainWindow(object):
         self.menuPrograma.addAction(self.actionEjecutar_minor)
         self.menuPrograma.addAction(self.actionEjecutar_minor_debug)
         self.menuPrograma.addSeparator()
+        self.menuPrograma.addAction(self.actionEjecutar_minor_normal)
+        self.menuPrograma.addAction(self.actionEjecutar_minor_debug_normal)
+        self.menuPrograma.addSeparator()
         self.menuPrograma.addAction(self.actionEjecutar_Descendente)
         self.menuPrograma.addSeparator()
         self.menuPrograma.addAction(self.actionEjecutar_Ascendente)
         self.menuPrograma.addAction(self.actionEjecutar_Paso_a_Paso_Ascendente)
+
+        
+        self.menuReportes.addAction(self.actionreportes_minor_c_gramatical)
+        self.menuReportes.addAction(self.actionreportes_minor_c_reglas_usadas)
+        self.menuReportes.addAction(self.actionreportes_minor_c_errores)
+        self.menuReportes.addAction(self.actionreportes_minor_c_graphviz)
+        self.menuReportes.addAction(self.actionreportes_tabla_de_simbolos)
+        self.menuReportes.addAction(self.actionreportes_minor_c_reporte_metodos)
+        self.menuReportes.addSeparator()
+
         self.menuReportes.addAction(self.actionTabla_de_Simbolos)
         self.menuReportes.addAction(self.actionErrores)
         self.menuReportes.addAction(self.actionAST)
@@ -406,6 +437,8 @@ class Ui_MainWindow(object):
         self.actionCerrrar.triggered.connect(self.clear)
         self.actionSalir.triggered.connect(self.exit)
         self.ruta_archivo  = None
+        self.actionEjecutar_minor_debug_normal.triggered.connect(self.ejecutar_minor_debug_normal)
+        self.actionEjecutar_minor_normal.triggered.connect(self.ejecutar_minor_normal)
         self.actionEjecutar_minor_debug.triggered.connect(self.ejecutar_minor_debug)
         self.actionEjecutar_minor.triggered.connect(self.ejecutar_minor)
         self.actionEjecutar_Ascendente.triggered.connect(self.ascendente)
@@ -414,6 +447,14 @@ class Ui_MainWindow(object):
         self.actionErrores.triggered.connect(self.generarRErrores)
         self.actionGramatical.triggered.connect(self.generarRGramatical)
         self.actionAST.triggered.connect(self.generarAST)
+        
+        self.actionreportes_minor_c_gramatical.triggered.connect(self.reportes_minor_c_gramatical)
+        self.actionreportes_minor_c_reglas_usadas.triggered.connect(self.reportes_minor_c_reglas_usadas)
+        self.actionreportes_minor_c_errores.triggered.connect(self.reportes_minor_c_errores)
+        self.actionreportes_minor_c_graphviz.triggered.connect(self.reportes_minor_c_graphviz)
+        self.actionreportes_tabla_de_simbolos.triggered.connect(self.reportes_tabla_de_simbolos)
+        self.actionreportes_minor_c_reporte_metodos.triggered.connect(self.reportes_minor_c_reporte_metodos)
+        
 
         self.actionAcercaDe.triggered.connect(self.acercade)
         self.actionAyuda.triggered.connect(self.ayuda)
@@ -488,18 +529,34 @@ class Ui_MainWindow(object):
         self.limpiar_reportes_minor_c()
 
         #self.reportes_minor_c_gramatical()
-        self.reportes_minor_c_reglas_usadas()
-        self.reportes_minor_c_errores()
+        #self.reportes_minor_c_reglas_usadas()
+        #self.reportes_minor_c_errores()
         #self.reportes_minor_c_graphviz()
         #self.reportes_tabla_de_simbolos()
-        self.reportes_minor_c_reporte_metodos()
+        #self.reportes_minor_c_reporte_metodos()
         self.ascendente()
+    
+    def ejecutar_minor_normal(self):
+        entrada=self.editor_minor.text()
+        self.editor.setText(self.mi_proyecto2.analizar_minor_c(entrada))
+       
+        self.editor_normal.setText(self.mi_proyecto2.analizar_minor_c(entrada))
         
+        self.limpiar_reportes_minor_c()
+        self.ascendente()
         
 
     def ejecutar_minor_debug(self):
         entrada=self.editor_minor.text()
+        self.limpiar_reportes_minor_c()
         self.editor.setText(self.mi_proyecto2.analizar_minor_c_optimizar_3D(entrada))
+        self.editor_normal.setText(self.mi_proyecto2.analizar_minor_c(entrada))
+        self.debugger()
+
+    def ejecutar_minor_debug_normal(self):
+        entrada=self.editor_minor.text()
+        self.limpiar_reportes_minor_c()
+        self.editor.setText(self.mi_proyecto2.analizar_minor_c(entrada))
         self.editor_normal.setText(self.mi_proyecto2.analizar_minor_c(entrada))
         self.debugger()
 
@@ -513,7 +570,7 @@ class Ui_MainWindow(object):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
 
-        msg.setText("AUGUS IDE\nPrimer Proyecto Compiladores 2 Vacaciones Junio\nElaborado por: Haroldo Arias\nCarnet: 201020247")
+        msg.setText("AUGUS IDE\nPrimer Proyecto Compiladores 2 Vacaciones Junio\nElaborado por: Haroldo Arias\nCarnet: 201020247 \n Segundo Proyecto \n Andhy Solis \n 201700886")
         msg.setInformativeText("Python 3.8.3\nPLY\nPyQT\nScintilla")
         msg.setWindowTitle("Acerca de")
         msg.setStandardButtons(QMessageBox.Ok)
@@ -835,7 +892,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "IDE AUGUS - HAROLDO PABLO ARIAS MOLINA - 201020247"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "IDE AUGUS - HAROLDO PABLO ARIAS MOLINA - 201020247 ----MINOR C -ANDHY LIZANDRO SOLIS OSORIO - 201700886"))
         #self.consola.setText(_translate("MainWindow", ""))
         self.menuArchivo.setTitle(_translate("MainWindow", "Archivo"))
         self.menuPrograma.setTitle(_translate("MainWindow", "Programa"))
@@ -858,6 +915,16 @@ class Ui_MainWindow(object):
         self.actionAST.setText(_translate("MainWindow", "AST"))
         self.actionGramatical.setText(_translate("MainWindow", "Gramatical"))
 
+        self.actionEjecutar_minor_normal.setText(_translate("MainWindow", "Ejecutar MinorC_Sin Optimizacion"))
+        self.actionEjecutar_minor_debug_normal.setText(_translate("MainWindow", "Ejecutar MinorC-Augus_PASO A PASO Sin Optimizacion"))
+        
+        self.actionreportes_minor_c_gramatical.setText(_translate("MainWindow", "MinorC Reporte Gramatical"))
+        self.actionreportes_minor_c_reglas_usadas.setText(_translate("MainWindow", "MinorC Reporte Optimizacion"))
+        self.actionreportes_minor_c_errores.setText(_translate("MainWindow", "MinorC Reporte Errores"))
+        self.actionreportes_minor_c_graphviz.setText(_translate("MainWindow", "MinorC Reporte Graphviz"))
+        self.actionreportes_tabla_de_simbolos.setText(_translate("MainWindow", "MinorC Reporte Tabla De Simbolos"))
+        self.actionreportes_minor_c_reporte_metodos.setText(_translate("MainWindow", "MinorC Reporte Reporte De Metodos"))
+        
         self.actionAyuda.setText(_translate("MainWindow", "Ayuda"))
         self.actionAcercaDe.setText(_translate("MainWindow", "Acerca de"))
 

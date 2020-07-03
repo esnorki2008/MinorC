@@ -51,7 +51,7 @@ class Optimo:
         self.lst = novo_lista
 
     def mirilla_regla_2_20(self):
-        
+        return
         contador = 0
         novo_lista = []
         vigilar = None
