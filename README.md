@@ -5,7 +5,11 @@
 - Creado por Haroldo Arias
 - Carnet 201020247
 - Junio 2020
-
+## Información General
+- Segundo Proyecto de Vacaciones Junio 2020
+- Creado por Andhy Solis
+- Carnet 201700886
+- Junio 2020
 
 ## Herramientas utilizadas
 - PLY: Generador de analizadores léxicos y sintácticos.
